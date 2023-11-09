@@ -4,9 +4,9 @@ import Footer from "../../components/footer";
 
 const WebLayout = () => {
   return (
-    <div className="max-w-[1280px] h-screen w-full mx-auto flex flex-col p-5">
+    <div className="h-screen w-full mx-auto flex flex-col p-5 relative">
       <Header />
-      <main>
+      <main className="absolute top-0 left-0 w-full h-screen">
         <Outlet />
       </main>
       <Footer />

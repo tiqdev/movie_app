@@ -12,3 +12,7 @@ export const useError = () => {
 export const useMovie = () => {
   return useSelector((state: RootState) => state.movie.movie);
 };
+
+export const useDiscoveredMovie = () => {
+  return useSelector((state: RootState) => state.movie.discoveredMovie);
+};
