@@ -16,3 +16,11 @@ export const useMovie = () => {
 export const useDiscoveredMovie = () => {
   return useSelector((state: RootState) => state.movie.discoveredMovie);
 };
+
+export const useSearchedMovies = () => {
+  return useSelector((state: RootState) => state.movie.searchedMovies);
+};
+
+export const useSearchActive = () => {
+  return useSelector((state: RootState) => state.movie.searchActive);
+};
