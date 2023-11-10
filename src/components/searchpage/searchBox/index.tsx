@@ -37,11 +37,15 @@ const SearchBox = () => {
                 className="flex flex-row items-start justify-between w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md"
               >
                 <div className="flex flex-col items-start justify-start w-[80%] gap-1 text-start">
-                  <h1 className="text-bold text-2xl text-m_yellow ">
+                  <h1 className="font-bold md:text-2xl text-[14px] text-m_yellow ">
                     {movie.title}
                   </h1>
-                  <span className="text-light text-sm">
+                  <span className="font-light md:text-sm text-[12px] md:block hidden">
                     {truncateAndAddEllipsis(movie.overview, 200)}
+                  </span>
+
+                  <span className="text-light md:text-sm text-[12px] md:hidden block">
+                    {truncateAndAddEllipsis(movie.overview, 175)}
                   </span>
                 </div>
 
@@ -68,9 +72,9 @@ const SearchBox = () => {
           searchedMovies.length > 2 && (
             <motion.div
               transition={{ duration: 0.2 }}
-              className=" mx-auto z-10 gap-2 bg-m_yellow p-2 rounded-md"
+              className=" mx-auto z-10 gap-2 bg-m_yellow p-2 px-4 rounded-md"
             >
-              <Link to="/list" className="text-bold text-xl text-m_black ">
+              <Link to="/list" className="font-bold text-lg text-m_black ">
                 View More
               </Link>
             </motion.div>
@@ -81,7 +85,7 @@ const SearchBox = () => {
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
             <div className="flex flex-col items-center justify-center w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md">
               <div className="flex flex-col items-center justify-center w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md">
-                <h1 className="text-bold text-2xl text-m_yellow ">
+                <h1 className="font-bold text-lg text-m_yellow ">
                   Movie not found!
                 </h1>
               </div>
