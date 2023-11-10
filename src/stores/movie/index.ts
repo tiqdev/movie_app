@@ -1,6 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Movie } from "../../models/Movie";
 import axios from "axios";
+import { MovieDetail } from "../../models/MovieDetail";
+import { token } from "../../utils/constants";
 
 type initialStateType = {
   discoveredMovie: Movie | null;
@@ -12,6 +14,7 @@ type initialStateType = {
   searchLoading: boolean;
   searchError: string;
   searchActive: boolean;
+  movieDetail: MovieDetail | null;
 };
 
 const initialState: initialStateType = {
@@ -52,6 +55,62 @@ const initialState: initialStateType = {
     vote_count: 0,
   },
 
+  movieDetail: {
+    adult: false,
+    backdrop_path: "",
+    belongs_to_collection: {
+      id: 0,
+      name: "",
+      poster_path: "",
+      backdrop_path: "",
+    },
+    budget: 0,
+    genres: [
+      {
+        id: 0,
+        name: "",
+      },
+    ],
+    homepage: "",
+    id: 0,
+    imdb_id: "",
+    original_language: "",
+    original_title: "",
+    overview: "",
+    popularity: 0,
+    poster_path: "",
+    production_companies: [
+      {
+        id: 0,
+        logo_path: "",
+        name: "",
+        origin_country: "",
+      },
+    ],
+    production_countries: [
+      {
+        iso_3166_1: "",
+        name: "",
+      },
+    ],
+    release_date: "",
+    revenue: 0,
+    runtime: 0,
+    spoken_languages: [
+      {
+        english_name: "",
+        iso_639_1: "",
+        name: "",
+      },
+    ],
+    status: "",
+    tagline: "",
+    title: "",
+    video: false,
+    vote_average: 0,
+    vote_count: 0,
+  },
+
   movies: [],
 
   searchedMovies: [],
@@ -86,6 +145,9 @@ export const MovieSlice = createSlice({
     _setSearchActive: (state, action: PayloadAction<boolean>) => {
       state.searchActive = action.payload;
     },
+    _setMovieDetail: (state, action: PayloadAction<MovieDetail>) => {
+      state.movieDetail = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -103,6 +165,20 @@ export const MovieSlice = createSlice({
       state.searchLoading = false;
       state.searchError = "Calm Down!";
     });
+
+    builder.addCase(_getMovieDetail.pending, (state) => {
+      state.loading = true;
+      state.error = "";
+    });
+    builder.addCase(_getMovieDetail.fulfilled, (state, action) => {
+      state.loading = false;
+      state.movieDetail = action.payload;
+      state.error = "";
+    });
+    builder.addCase(_getMovieDetail.rejected, (state) => {
+      state.loading = false;
+      state.error = "Calm Down!";
+    });
   },
 });
 
@@ -111,10 +187,31 @@ export const _searchMovie = createAsyncThunk(
   (query: string) => {
     return axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1&api_key=9c025f172d67fc84ac78fa853273da3a`
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((response) => {
         return response.data.results;
+      });
+  }
+);
+
+export const _getMovieDetail = createAsyncThunk(
+  "movie/getMovieDetail",
+  (id: number) => {
+    return axios
+      .get(`https://api.themoviedb.org/3/movie/${id}?&language=en-US`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
       });
   }
 );
@@ -126,6 +223,7 @@ export const {
   _setDiscoveredMovie,
   _setSearchedMovies,
   _setSearchActive,
+  _setMovieDetail,
 } = MovieSlice.actions;
 
 export default MovieSlice.reducer;

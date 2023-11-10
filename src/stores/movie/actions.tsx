@@ -1,14 +1,17 @@
 import store from "..";
 import {
+  _getMovieDetail,
   _searchMovie,
   _setDiscoveredMovie,
   _setError,
   _setIsLoading,
   _setMovie,
+  _setMovieDetail,
   _setSearchActive,
   _setSearchedMovies,
 } from ".";
 import { Movie } from "../../models/Movie";
+import { MovieDetail } from "../../models/MovieDetail";
 
 export const setIsLoading = (isLoading: boolean) => {
   store.dispatch(_setIsLoading(isLoading));
@@ -36,4 +39,12 @@ export const searchMovie = (query: string) => {
 
 export const setSearchActive = (searchActive: boolean) => {
   store.dispatch(_setSearchActive(searchActive));
+};
+
+export const setMovieDetail = (movieDetail: MovieDetail) => {
+  store.dispatch(_setMovieDetail(movieDetail));
+};
+
+export const getMovieDetail = (id: number) => {
+  store.dispatch(_getMovieDetail(id));
 };

@@ -28,12 +28,9 @@ const SearchBox = () => {
         {searchedMovies.length > 0 && (
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
             {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => (
-              <motion.div
-                initial={{ opacity: 0, y: 40 * (index + 1) }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 40 * (index + 1) }}
-                transition={{ duration: 0.2 }}
-                key={movie.id}
+              <Link
+                to={`/detail/${movie.id}`}
+                key={movie.id.toString()}
                 className="flex flex-row items-start justify-between w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md"
               >
                 <div className="flex flex-col items-start justify-start w-[80%] gap-1 text-start">
@@ -62,7 +59,7 @@ const SearchBox = () => {
                     </div>
                   )}
                 </div>
-              </motion.div>
+              </Link>
             ))}
           </div>
         )}

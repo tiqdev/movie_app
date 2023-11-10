@@ -18,11 +18,11 @@ const routes = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "/list",
+        path: "/list/",
         element: <ListPage />,
       },
       {
-        path: "/detail",
+        path: "/detail/:id",
         element: <DetailPage />,
       },
     ],

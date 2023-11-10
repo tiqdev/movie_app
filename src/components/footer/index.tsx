@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-auto mx-auto">
+    <footer className="absolute bottom-0 left-1/2 -translate-x-1/2 mx-auto">
       <span className="text-white text-[12px]">Created by tiqdev 2023</span>
     </footer>
   );

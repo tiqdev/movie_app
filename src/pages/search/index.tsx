@@ -7,10 +7,7 @@ const SearchPage = () => {
 
   return (
     <div className="relative mb-8 flex h-full">
-      <BackdropImage
-        image={discoveredMovie?.backdrop_path}
-        title={discoveredMovie?.title}
-      />
+      <BackdropImage image={discoveredMovie?.backdrop_path} />
 
       <div className="absolute flex flex-col items-center justify-center w-full mx-auto text-center text-white z-10 gap-4 top-[30%] md:top-[40%]">
         <SearchBox />

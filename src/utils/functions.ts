@@ -4,3 +4,14 @@ export const truncateAndAddEllipsis = (text: string, limit: number) => {
   }
   return text;
 };
+
+export function toHoursAndMinutes(totalMinutes: number) {
+  const minutes = totalMinutes % 60;
+  const hours = Math.floor(totalMinutes / 60);
+
+  if (hours === 0) {
+    return `${minutes}m`;
+  }
+
+  return `${hours}h ${minutes}m`;
+}

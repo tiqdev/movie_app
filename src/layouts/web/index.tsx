@@ -10,7 +10,6 @@ const WebLayout = () => {
       <main className="absolute top-0 left-0 w-full h-full">
         <Outlet />
       </main>
-      <Footer />
     </Div100vh>
   );
 };
