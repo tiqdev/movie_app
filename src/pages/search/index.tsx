@@ -9,6 +9,7 @@ const SearchPage = () => {
   const discoveredMovie = useDiscoveredMovie();
   useEffect(() => {
     resetSearch();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -16,7 +17,7 @@ const SearchPage = () => {
       <AnimatePage>
         <BackdropImage image={discoveredMovie?.backdrop_path} />
 
-        <div className="absolute flex flex-col items-center justify-center w-full mx-auto text-center text-white z-10 gap-4 top-[30%] md:top-[40%] pb-[100px]">
+        <div className="absolute flex flex-col items-center justify-center w-full mx-auto text-center text-white z-10 gap-4 top-[30%] md:top-[30%] pb-[100px]">
           <SearchBox />
         </div>
       </AnimatePage>

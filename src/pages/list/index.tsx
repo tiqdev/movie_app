@@ -27,6 +27,10 @@ const ListPage = () => {
   const totalResults = useTotalResults();
   const totalPages = useTotalPages();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [sentryRef] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage: page <= totalPages,
@@ -48,9 +52,9 @@ const ListPage = () => {
     <AnimatePage>
       <div className="mt-[80px] flex flex-col items-start justify-start gap-4 w-full max-w-[1280px] mx-auto px-4 relative">
         <ScrollToTop />
-        <div className="w-full flex md:flex-row flex-col md:mt-[80px] mt-[40px] justify-between items-center">
+        <div className="w-full flex md:flex-row flex-col md:mt-[80px] mt-[40px] justify-between items-center gap-2">
           <h1 className="text-xl md:text-2xl font-normal text-center text-white">
-            Results for{" "}
+            Results for:{" "}
             <span className="font-bold text-m_yellow">
               {searchQuery !== "" ? searchQuery : q}
             </span>

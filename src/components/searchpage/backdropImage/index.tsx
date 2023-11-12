@@ -7,7 +7,7 @@ const BackdropImage = ({ image }: BackdropImageProps) => {
     <>
       <div className="absolute top-0 left-0 w-full h-[100%] z-10 bg-overlay_pattern_dark_bottom opacity-100"></div>
       <div
-        className="absolute top-0 left-0 w-full h-[100%] bg-cover bg-no-repeat z-0 opacity-50"
+        className="absolute top-0 left-0 w-full h-[100%] bg-cover bg-no-repeat z-0 opacity-20"
         style={{
           backgroundImage: `url(${image})`,
           backgroundPositionX: "center",

@@ -35,10 +35,11 @@ const SearchInput = () => {
   };
 
   return (
-    <div className="flex start mx-auto border-b-2 focus-within:border-m_yellow focus-within:text-m_yellow items-center py-1">
+    <div className="flex start mx-auto border-b-2 focus-within:border-m_yellow focus-within:text-m_yellow items-center py-1 placeholder:text-m_yellow">
       <input
         type="text"
         value={query}
+        placeholder="Search for a movie"
         onChange={handleOnChange}
         className="flex-1 bg-transparent outline-none px-2 py-1 focus:text-white"
       />

@@ -22,6 +22,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     resetSearch();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
