@@ -9,17 +9,17 @@ const SearchListItem = ({ movie }: { movie: Movie }) => {
     <Link
       to={`/detail/${movie.id}`}
       key={movie.id.toString()}
-      className="flex sm:flex-row flex-col-reverse items-start justify-between w-full mx-auto z-10 gap-2 bg-black p-2 rounded-[12px]"
+      className="flex sm:flex-row flex-col-reverse items-start justify-between w-full mx-auto z-10 gap-2 bg-black p-4 rounded-[12px]"
     >
-      <div className="flex flex-col items-start justify-start sm:w-[80%] w-full gap-1 text-start py-2 pl-2">
-        <h1 className="font-bold md:text-2xl text-[14px] text-m_yellow">
+      <div className="flex flex-col items-start justify-start sm:w-[80%] w-full gap-1 text-start py-2 sm:pl-2">
+        <h1 className="font-bold md:text-2xl text-[16px] text-m_yellow">
           {truncateAndAddEllipsis(movie.title, 27)}
         </h1>
-        <span className="font-light text-sm  md:block hidden">
+        <span className="font-light text-sm md:block hidden">
           {truncateAndAddEllipsis(movie.overview, 200)}
         </span>
 
-        <span className="font-light text-[12px] md:hidden block">
+        <span className="font-light text-sm md:hidden block">
           {truncateAndAddEllipsis(movie.overview, 175)}
         </span>
       </div>

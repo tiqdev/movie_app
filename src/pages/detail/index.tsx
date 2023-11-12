@@ -27,7 +27,7 @@ const DetailPage = () => {
 
   return (
     <AnimatePage>
-      <div className="mt-[80px] w-full">
+      <div className="mt-[80px] w-full pb-[40px]">
         {isLoading && (
           <div className="flex justify-center items-center h-screen w-full">
             <Loading />
@@ -96,43 +96,86 @@ const DetailPage = () => {
               </div>
             </div>
 
-            <div className="flex flex-row max-w-[1280px] w-full mx-auto py-12 px-4">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
-              explicabo, nesciunt magni iure ut expedita nostrum libero tenetur
-              perspiciatis quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur? Lorem ipsum dolor
-              sit, amet consectetur adipisicing elit. Ipsum explicabo, nesciunt
-              magni iure ut expedita nostrum libero tenetur perspiciatis
-              quibusdam repudiandae? Velit architecto quibusdam et
-              reprehenderit? Id, sed. Voluptatibus, tenetur?
+            <div className="flex flex-col items-start justify-start w-full max-w-[1280px] px-4 mx-auto pt-10 gap-6">
+              <h1 className="text-2xl md:text-4xl font-bold md:text-start text-center text-m_yellow">
+                Reviews
+              </h1>
+
+              <div className="flex flex-wrap gap-5">
+                <div className="flex flex-col max-w-[600px] w-full z-10 gap-4  bg-black p-4 rounded-[22px]">
+                  <div className="flex flex-row gap-3 items-center justify-start">
+                    <img
+                      src="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
+                      className="w-14 h-14 rounded-[8px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col items-start justify-start gap-[2px]">
+                      <h2 className="text-[16px] text-m_yellow">Tarık KAYA</h2>
+                      <h3 className="text-[10px] font-light text-white italic">
+                        25/10/2023
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span className="font-light text-[14px] text-gray-50">
+                    The film takes the viewer into the mind of the "Father of
+                    the atomic bomb" how he thinks, how he feels with much
+                    accuracy. Nolan beautifully explains his life both on a
+                    private and professional front. The music, the sounds with
+                    each scene are top notch. The visuals of QUANTUM PHYSICS,
+                    FISSION, NUCLEAR EXPLOSION are mind-boggling.
+                  </span>
+                </div>
+                <div className="flex flex-col max-w-[600px] w-full z-10 gap-4 bg-black p-4 rounded-[12px]">
+                  <div className="flex flex-row gap-2 items-center justify-start">
+                    <img
+                      src="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
+                      className="w-14 h-14 rounded-[8px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col items-start justify-start gap-[2px]">
+                      <h2 className="text-[16px] text-m_yellow">Tarık KAYA</h2>
+                      <h3 className="text-[10px] font-light text-white italic">
+                        25/10/2023
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span className="font-light text-[14px] text-gray-50">
+                    The film takes the viewer into the mind of the "Father of
+                    the atomic bomb" how he thinks, how he feels with much
+                    accuracy. Nolan beautifully explains his life both on a
+                    private and professional front. The music, the sounds with
+                    each scene are top notch. The visuals of QUANTUM PHYSICS,
+                    FISSION, NUCLEAR EXPLOSION are mind-boggling.
+                  </span>
+                </div>
+
+                <div className="flex flex-col max-w-[600px] w-full z-10 gap-4  bg-black p-4 rounded-[22px]">
+                  <div className="flex flex-row gap-3 items-center justify-start">
+                    <img
+                      src="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
+                      className="w-14 h-14 rounded-[8px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col items-start justify-start gap-[2px]">
+                      <h2 className="text-[16px] text-m_yellow">Tarık KAYA</h2>
+                      <h3 className="text-[10px] font-light text-white italic">
+                        25/10/2023
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span className="font-light text-[14px] text-gray-50">
+                    The film takes the viewer into the mind of the "Father of
+                    the atomic bomb" how he thinks, how he feels with much
+                    accuracy. Nolan beautifully explains his life both on a
+                    private and professional front. The music, the sounds with
+                    each scene are top notch. The visuals of QUANTUM PHYSICS,
+                    FISSION, NUCLEAR EXPLOSION are mind-boggling.
+                  </span>
+                </div>
+              </div>
             </div>
           </>
         )}
