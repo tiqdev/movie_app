@@ -9,11 +9,14 @@ import { toHoursAndMinutes } from "../../utils/functions";
 import GenresList from "../../components/detailpage/genresList";
 import AnimatePage from "../../components/common/animatePage";
 import { Link } from "react-router-dom";
+import { useUser } from "../../stores/user/hooks";
+import ReviewTextArea from "../../components/detailpage/reviewTextArea";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const movieDetail = useMovieDetail();
   const isLoading = useIsLoading();
+  const user = useUser();
 
   useEffect(() => {
     id && getMovieDetail(Number(id));
@@ -99,6 +102,8 @@ const DetailPage = () => {
               <h1 className="text-2xl md:text-4xl font-bold md:text-start text-center text-m_yellow">
                 Reviews
               </h1>
+
+              {user.email && <ReviewTextArea />}
 
               <div className="flex flex-wrap gap-5">
                 <div className="flex flex-col max-w-[600px] w-full z-10 gap-4  bg-black p-4 rounded-[22px]">
