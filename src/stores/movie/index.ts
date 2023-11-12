@@ -189,10 +189,12 @@ export const MovieSlice = createSlice({
       state.searchLoading = false;
 
       if (state.page > 1) {
-        state.searchedMovies = [
-          ...state.searchedMovies,
-          ...action.payload.results,
-        ];
+        state.searchedMovies = state.searchedMovies.concat(
+          action.payload.results
+        );
+
+        console.log(state.searchedMovies);
+
         state.totalResults = action.payload.total_results;
         state.totalPages = action.payload.total_pages;
       } else {
