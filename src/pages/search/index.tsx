@@ -4,10 +4,18 @@ import SearchBox from "../../components/searchpage/searchBox";
 import { useDiscoveredMovie } from "../../stores/movie/hooks";
 import { resetSearch } from "../../stores/movie/actions";
 import AnimatePage from "../../components/common/animatePage";
+import { setUser } from "../../stores/user/actions";
 
 const SearchPage = () => {
   const discoveredMovie = useDiscoveredMovie();
+
   useEffect(() => {
+    //if localstorage has user data, set user
+    const user = JSON.parse(localStorage.getItem("user")!);
+    if (user) {
+      setUser(user);
+    }
+
     resetSearch();
     window.scrollTo(0, 0);
   }, []);

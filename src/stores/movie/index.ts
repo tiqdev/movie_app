@@ -193,8 +193,6 @@ export const MovieSlice = createSlice({
           action.payload.results
         );
 
-        console.log(state.searchedMovies);
-
         state.totalResults = action.payload.total_results;
         state.totalPages = action.payload.total_pages;
       } else {
@@ -241,7 +239,6 @@ export const _searchMovie = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       });
   }
@@ -257,7 +254,6 @@ export const _getMovieDetail = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data);
         return response.data;
       });
   }

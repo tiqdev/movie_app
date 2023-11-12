@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const movieDetail = useMovieDetail();
-  console.log(movieDetail);
   const isLoading = useIsLoading();
 
   useEffect(() => {

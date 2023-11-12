@@ -33,6 +33,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.1",
     "copy-webpack-plugin": "^11.0.0",
+    "firebase": "^10.6.0",
     "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",
     "postcss-loader": "^7.3.3",
