@@ -13,8 +13,12 @@ type initialStateType = {
   error: string;
   searchLoading: boolean;
   searchError: string;
+  searchQuery: string;
   searchActive: boolean;
   movieDetail: MovieDetail | null;
+  page: number;
+  totalPages: number;
+  totalResults: number;
 };
 
 const initialState: initialStateType = {
@@ -115,12 +119,18 @@ const initialState: initialStateType = {
 
   searchedMovies: [],
 
+  searchQuery: "",
+  page: 1,
+
   loading: false,
   error: "Movie Not Found !",
 
   searchLoading: false,
   searchError: "Movie Not Found !",
   searchActive: false,
+
+  totalPages: 0,
+  totalResults: 0,
 };
 
 export const MovieSlice = createSlice({
@@ -148,6 +158,26 @@ export const MovieSlice = createSlice({
     _setMovieDetail: (state, action: PayloadAction<MovieDetail>) => {
       state.movieDetail = action.payload;
     },
+    _resetSearch: (state) => {
+      state.searchActive = false;
+      state.searchedMovies = [];
+      state.searchQuery = "";
+    },
+    _setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
+
+    _setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
+
+    _setTotalPages: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
+    },
+
+    _setTotalResults: (state, action: PayloadAction<number>) => {
+      state.totalResults = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -157,9 +187,22 @@ export const MovieSlice = createSlice({
     });
     builder.addCase(_searchMovie.fulfilled, (state, action) => {
       state.searchLoading = false;
-      state.searchedMovies = action.payload;
+
+      if (state.page > 1) {
+        state.searchedMovies = [
+          ...state.searchedMovies,
+          ...action.payload.results,
+        ];
+        state.totalResults = action.payload.total_results;
+        state.totalPages = action.payload.total_pages;
+      } else {
+        state.searchedMovies = action.payload.results;
+        state.totalResults = action.payload.total_results;
+        state.totalPages = action.payload.total_pages;
+      }
       state.searchActive = true;
       state.searchError = "";
+      state.page = state.page + 1;
     });
     builder.addCase(_searchMovie.rejected, (state) => {
       state.searchLoading = false;
@@ -184,10 +227,11 @@ export const MovieSlice = createSlice({
 
 export const _searchMovie = createAsyncThunk(
   "movie/searchMovie",
-  (query: string) => {
+  //this function has to have two parameters, the second one is a page number
+  ({ query, page }: { query: string; page: number }) => {
     return axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -195,7 +239,8 @@ export const _searchMovie = createAsyncThunk(
         }
       )
       .then((response) => {
-        return response.data.results;
+        console.log(response.data);
+        return response.data;
       });
   }
 );
@@ -224,6 +269,11 @@ export const {
   _setSearchedMovies,
   _setSearchActive,
   _setMovieDetail,
+  _resetSearch,
+  _setSearchQuery,
+  _setPage,
+  _setTotalPages,
+  _setTotalResults,
 } = MovieSlice.actions;
 
 export default MovieSlice.reducer;

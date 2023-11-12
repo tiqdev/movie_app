@@ -2,8 +2,11 @@ import { Outlet } from "react-router-dom";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Div100vh from "react-div-100vh";
+import { AnimatePresence, motion } from "framer-motion";
 
 const WebLayout = () => {
+  //create a layout with framer motion animation for nativation
+
   return (
     <Div100vh className="w-full mx-auto flex flex-col p-5 relative">
       <Header />

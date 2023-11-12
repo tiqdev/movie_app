@@ -28,3 +28,19 @@ export const useSearchActive = () => {
 export const useMovieDetail = () => {
   return useSelector((state: RootState) => state.movie.movieDetail);
 };
+
+export const useSearchQuery = () => {
+  return useSelector((state: RootState) => state.movie.searchQuery);
+};
+
+export const usePage = () => {
+  return useSelector((state: RootState) => state.movie.page);
+};
+
+export const useTotalPages = () => {
+  return useSelector((state: RootState) => state.movie.totalPages);
+};
+
+export const useTotalResults = () => {
+  return useSelector((state: RootState) => state.movie.totalResults);
+};

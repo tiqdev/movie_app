@@ -18,7 +18,7 @@ const routes = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "/list/",
+        path: "/list/:q",
         element: <ListPage />,
       },
       {

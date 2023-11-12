@@ -1,14 +1,19 @@
 import store from "..";
 import {
   _getMovieDetail,
+  _resetSearch,
   _searchMovie,
   _setDiscoveredMovie,
   _setError,
   _setIsLoading,
   _setMovie,
   _setMovieDetail,
+  _setPage,
   _setSearchActive,
+  _setSearchQuery,
   _setSearchedMovies,
+  _setTotalPages,
+  _setTotalResults,
 } from ".";
 import { Movie } from "../../models/Movie";
 import { MovieDetail } from "../../models/MovieDetail";
@@ -33,12 +38,22 @@ export const setSearchedMovies = (movies: Movie[]) => {
   store.dispatch(_setSearchedMovies(movies));
 };
 
-export const searchMovie = (query: string) => {
-  store.dispatch(_searchMovie(query));
+export const searchMovie = ({
+  query,
+  page,
+}: {
+  query: string;
+  page: number;
+}) => {
+  store.dispatch(_searchMovie({ query, page }));
 };
 
 export const setSearchActive = (searchActive: boolean) => {
   store.dispatch(_setSearchActive(searchActive));
+};
+
+export const setSearchQuery = (searchQuery: string) => {
+  store.dispatch(_setSearchQuery(searchQuery));
 };
 
 export const setMovieDetail = (movieDetail: MovieDetail) => {
@@ -47,4 +62,20 @@ export const setMovieDetail = (movieDetail: MovieDetail) => {
 
 export const getMovieDetail = (id: number) => {
   store.dispatch(_getMovieDetail(id));
+};
+
+export const resetSearch = () => {
+  store.dispatch(_resetSearch());
+};
+
+export const setPage = (page: number) => {
+  store.dispatch(_setPage(page));
+};
+
+export const setTotalPages = (totalPages: number) => {
+  store.dispatch(_setTotalPages(totalPages));
+};
+
+export const setTotalResults = (totalResults: number) => {
+  store.dispatch(_setTotalResults(totalResults));
 };

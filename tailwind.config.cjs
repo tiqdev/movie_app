@@ -9,14 +9,14 @@ export default {
             colors: {
                 'm_black': '#121212',
                 'm_yellow': '#ffc800',
-                'm_brown': "#74420f"
+                'm_brown': "#74420f",
+                'm_red': "#F13A34",
             },
             backgroundImage: {
                 overlay_pattern_dark_bottom:
                     "linear-gradient(to bottom, transparent, #121212 90%)",
                 overlay_pattern_dark_top:
                     "linear-gradient(to top, transparent, #121212 90%)",
-
             }
 
         },

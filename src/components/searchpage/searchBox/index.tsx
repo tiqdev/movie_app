@@ -1,20 +1,20 @@
 import { Movie } from "../../../models/Movie";
 
-import { BsFilm } from "react-icons/bs";
-
-import { w500ImageUrl } from "../../../utils/constants";
-import { truncateAndAddEllipsis } from "../../../utils/functions";
 import {
   useSearchActive,
+  useSearchQuery,
   useSearchedMovies,
 } from "../../../stores/movie/hooks";
 import SearchInput from "../searchInput";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import SearchListItem from "../searchListItem";
+import ErrorText from "../../common/errorText";
 
 const SearchBox = () => {
   const searchedMovies = useSearchedMovies();
   const searchActive = useSearchActive();
+  const searchQuery = useSearchQuery();
 
   return (
     <>
@@ -22,44 +22,15 @@ const SearchBox = () => {
         Find Your Movie
       </h1>
 
-      <SearchInput />
+      <div className="max-w-[560px] w-[90%]">
+        <SearchInput />
+      </div>
 
       <AnimatePresence>
         {searchedMovies.length > 0 && (
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
             {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => (
-              <Link
-                to={`/detail/${movie.id}`}
-                key={movie.id.toString()}
-                className="flex flex-row items-start justify-between w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md"
-              >
-                <div className="flex flex-col items-start justify-start w-[80%] gap-1 text-start">
-                  <h1 className="font-bold md:text-2xl text-[14px] text-m_yellow ">
-                    {movie.title}
-                  </h1>
-                  <span className="font-light md:text-sm text-[12px] md:block hidden">
-                    {truncateAndAddEllipsis(movie.overview, 200)}
-                  </span>
-
-                  <span className="text-light md:text-sm text-[12px] md:hidden block">
-                    {truncateAndAddEllipsis(movie.overview, 175)}
-                  </span>
-                </div>
-
-                <div>
-                  {movie.poster_path !== null ? (
-                    <img
-                      src={w500ImageUrl + movie.poster_path}
-                      alt={movie.title}
-                      className="w-[94px] h-[141px]"
-                    />
-                  ) : (
-                    <div className="w-[94px] h-[141px] bg-gray-500 flex items-center justify-center">
-                      <BsFilm className="w-5 h-5 md:w-6 md:h-6" />
-                    </div>
-                  )}
-                </div>
-              </Link>
+              <SearchListItem movie={movie} key={index} />
             ))}
           </div>
         )}
@@ -67,26 +38,18 @@ const SearchBox = () => {
         {
           //if more than 2 movies are found, show the view more button
           searchedMovies.length > 2 && (
-            <motion.div
-              transition={{ duration: 0.2 }}
-              className=" mx-auto z-10 gap-2 bg-m_yellow p-2 px-4 rounded-md"
+            <Link
+              to={`/list/${searchQuery}`}
+              className="font-bold text-lg text-m_black mx-auto z-10 gap-2 bg-m_yellow p-2 px-4 rounded-md hover:bg-m_brown hover:text-m_yellow transition-color duration-300 ease-in-out"
             >
-              <Link to="/list" className="font-bold text-lg text-m_black ">
-                View More
-              </Link>
-            </motion.div>
+              View More
+            </Link>
           )
         }
 
         {searchedMovies.length === 0 && searchActive && (
-          <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
-            <div className="flex flex-col items-center justify-center w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md">
-              <div className="flex flex-col items-center justify-center w-full mx-auto z-10 gap-2 bg-black p-2 rounded-md">
-                <h1 className="font-bold text-lg text-m_yellow ">
-                  Movie not found!
-                </h1>
-              </div>
-            </div>
+          <div className="flex max-w-[560px] w-[90%] gap-2">
+            <ErrorText text="No Movies Found" />
           </div>
         )}
       </AnimatePresence>
