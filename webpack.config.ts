@@ -37,7 +37,9 @@ const config: Configuration = {
     path: path.resolve(__dirname, "build"),
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
     new CopyWebpackPlugin({
       patterns: [{ from: "public" }],
     }),
