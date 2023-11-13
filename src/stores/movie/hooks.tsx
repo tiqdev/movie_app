@@ -44,3 +44,7 @@ export const useTotalPages = () => {
 export const useTotalResults = () => {
   return useSelector((state: RootState) => state.movie.totalResults);
 };
+
+export const useSearchIsLoading = () => {
+  return useSelector((state: RootState) => state.movie.searchLoading);
+};

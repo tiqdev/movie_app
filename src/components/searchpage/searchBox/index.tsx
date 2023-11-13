@@ -2,19 +2,21 @@ import { Movie } from "../../../models/Movie";
 
 import {
   useSearchActive,
+  useSearchIsLoading,
   useSearchQuery,
   useSearchedMovies,
 } from "../../../stores/movie/hooks";
 import SearchInput from "../searchInput";
-import { AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import SearchListItem from "../searchListItem";
 import ErrorText from "../../common/errorText";
+import Loading from "../../common/loading";
 
 const SearchBox = () => {
   const searchedMovies = useSearchedMovies();
   const searchActive = useSearchActive();
   const searchQuery = useSearchQuery();
+  const searchIsLoading = useSearchIsLoading();
 
   return (
     <>
@@ -26,11 +28,11 @@ const SearchBox = () => {
         <SearchInput />
       </div>
 
-      <AnimatePresence>
+      <>
         {searchedMovies.length > 0 && (
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
             {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => (
-              <SearchListItem movie={movie} key={movie.id} />
+              <SearchListItem movie={movie} key={index} />
             ))}
           </div>
         )}
@@ -47,12 +49,18 @@ const SearchBox = () => {
           )
         }
 
+        {searchIsLoading && (
+          <div className="flex max-w-[560px] w-[90%] gap-2 h-2">
+            <Loading />
+          </div>
+        )}
+
         {searchedMovies.length === 0 && searchActive && (
           <div className="flex max-w-[560px] w-[90%] gap-2">
             <ErrorText text="No Movies Found" />
           </div>
         )}
-      </AnimatePresence>
+      </>
     </>
   );
 };
