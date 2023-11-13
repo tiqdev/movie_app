@@ -8,7 +8,6 @@ const SearchListItem = ({ movie }: { movie: Movie }) => {
   return (
     <Link
       to={`/detail/${movie.id}`}
-      key={movie.id.toString()}
       className="flex sm:flex-row flex-col-reverse items-start justify-between w-full mx-auto z-10 gap-2 bg-black p-4 rounded-[12px]"
     >
       <div className="flex flex-col items-start justify-start sm:w-[80%] w-full gap-1 text-start py-2 sm:pl-2">

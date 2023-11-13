@@ -6,7 +6,7 @@ export const w780ImageUrl = "https://image.tmdb.org/t/p/w780";
 export const _token = process.env.TMDB_API_TOKEN;
 
 export const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: process.env.FIREBASE_APIKEY,
   authDomain: "tiqdevmovie.firebaseapp.com",
   projectId: "tiqdevmovie",
   storageBucket: "tiqdevmovie.appspot.com",

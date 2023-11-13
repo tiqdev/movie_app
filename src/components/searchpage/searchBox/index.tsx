@@ -30,7 +30,7 @@ const SearchBox = () => {
         {searchedMovies.length > 0 && (
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
             {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => (
-              <SearchListItem movie={movie} key={index} />
+              <SearchListItem movie={movie} key={movie.id} />
             ))}
           </div>
         )}
