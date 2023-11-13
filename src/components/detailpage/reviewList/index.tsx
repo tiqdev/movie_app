@@ -1,14 +1,20 @@
+import { useReviews } from "../../../stores/movie/hooks";
 import ReviewItem from "../reviewItem";
 
 const ReviewList = () => {
+  const reviews = useReviews();
+  console.log(reviews);
   return (
     <div className="flex flex-wrap gap-5">
-      <ReviewItem
-        displayName="Tarık KAYA"
-        photoUrl="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
-        review="lorem ipsum"
-        date="25/10/2023"
-      />
+      {reviews.map((review) => (
+        <ReviewItem
+          key={review.reviewId}
+          displayName={review.userDisplayName || ""}
+          photoUrl={review.userPhoto}
+          review={review.review}
+          date={review.date}
+        />
+      ))}
     </div>
   );
 };

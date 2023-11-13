@@ -3,6 +3,7 @@ import {
   _addFavoriteMovie,
   _getFavoriteMovies,
   _getMovieDetail,
+  _getMovieReviews,
   _removeFavoriteMovie,
   _resetSearch,
   _searchMovie,
@@ -98,4 +99,8 @@ export const removeFavoriteMovie = (favorite: Favorite) => {
 
 export const setDropdownIsActive = (dropdownIsActive: boolean) => {
   return store.dispatch(_setDropDownIsActive(dropdownIsActive));
+};
+
+export const getMovieReview = (movieId: number) => {
+  return store.dispatch(_getMovieReviews(movieId));
 };

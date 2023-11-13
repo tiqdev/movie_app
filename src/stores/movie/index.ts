@@ -7,11 +7,13 @@ import {
   addFavorite,
   favoriteMovieCollection,
   getFavorites,
+  getReviews,
   removeFavorite,
 } from "../../utils/firebaseFunctions";
 import { DocumentData, QuerySnapshot, onSnapshot } from "firebase/firestore";
 import { toast } from "sonner";
 import { removeFavoriteMovie } from "./actions";
+import { Review } from "../../models/Review";
 
 type initialStateType = {
   discoveredMovie: Movie | null;
@@ -35,6 +37,10 @@ type initialStateType = {
   totalResults: number;
 
   dropDownIsActive: boolean;
+
+  reviews: Review[];
+  reviewsLoading: boolean;
+  reviewsError: string;
 };
 
 const initialState: initialStateType = {
@@ -148,6 +154,10 @@ const initialState: initialStateType = {
   totalResults: 0,
 
   dropDownIsActive: false,
+
+  reviews: [],
+  reviewsLoading: false,
+  reviewsError: "",
 };
 
 export const MovieSlice = createSlice({
@@ -290,6 +300,21 @@ export const MovieSlice = createSlice({
       state.favoritesLoading = false;
       toast.error("Error removing favorite");
     });
+
+    //get movie reviews
+    builder.addCase(_getMovieReviews.pending, (state) => {
+      state.reviewsLoading = true;
+      state.reviewsError = "";
+    });
+    builder.addCase(_getMovieReviews.fulfilled, (state, action) => {
+      state.reviewsLoading = false;
+      state.reviewsError = "";
+      state.reviews = action.payload;
+    });
+    builder.addCase(_getMovieReviews.rejected, (state) => {
+      state.reviewsLoading = false;
+      toast.error("Error getting reviews");
+    });
   },
 });
 
@@ -363,6 +388,15 @@ export const _removeFavoriteMovie = createAsyncThunk(
       fetchedFavorites = await getFavorites(favorite.userId);
     }
     return fetchedFavorites;
+  }
+);
+
+export const _getMovieReviews = createAsyncThunk(
+  "movie/getMovieReviews",
+  async (movieId: number) => {
+    const fetchedReviews = await getReviews(movieId);
+    console.log(fetchedReviews, "fetchedReviews");
+    return fetchedReviews;
   }
 );
 

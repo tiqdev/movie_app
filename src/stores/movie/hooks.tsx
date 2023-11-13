@@ -60,3 +60,7 @@ export const useIsFavoriteLoading = () => {
 export const useDropdownIsActive = () => {
   return useSelector((state: RootState) => state.movie.dropDownIsActive);
 };
+
+export const useReviews = () => {
+  return useSelector((state: RootState) => state.movie.reviews);
+};

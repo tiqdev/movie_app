@@ -1,8 +1,11 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Review {
-  uuid: string;
+  userId: string;
   movieId: number;
-  displayName: string;
-  photoUrl: string;
-  date: string;
+  userDisplayName: string;
+  userPhoto: string;
+  date: Timestamp;
   review: string;
+  reviewId: string;
 }

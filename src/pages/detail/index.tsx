@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import {
   getFavoriteMovies,
   getMovieDetail,
+  getMovieReview,
   resetSearch,
 } from "../../stores/movie/actions";
 import {
@@ -11,17 +12,12 @@ import {
   useMovieDetail,
 } from "../../stores/movie/hooks";
 import Loading from "../../components/common/loading";
-import { originalImageUrl, w780ImageUrl } from "../../utils/constants";
-import { BsFilm } from "react-icons/bs";
-import { toHoursAndMinutes } from "../../utils/functions";
-import GenresList from "../../components/detailpage/genresList";
 import AnimatePage from "../../components/common/animatePage";
 import { Link } from "react-router-dom";
 import { useUser } from "../../stores/user/hooks";
 import ReviewTextArea from "../../components/detailpage/reviewTextArea";
 import Poster from "../../components/detailpage/poster";
 import MovieInfo from "../../components/detailpage/movieInfo";
-import ReviewItem from "../../components/detailpage/reviewItem";
 import ReviewList from "../../components/detailpage/reviewList";
 import BackdropImage from "../../components/detailpage/backdropImage";
 import Title from "../../components/common/title";
@@ -48,6 +44,12 @@ const DetailPage = () => {
       getFavoriteMovies(user.uid);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (movieDetail) {
+      getMovieReview(movieDetail.id);
+    }
+  }, [movieDetail]);
 
   return (
     <AnimatePage>

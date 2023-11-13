@@ -1,7 +1,9 @@
+import { Timestamp } from "firebase/firestore";
+
 interface Props {
   displayName: string;
   photoUrl: string;
-  date: string;
+  date: Timestamp;
   review: string;
 }
 
@@ -16,7 +18,7 @@ const ReviewItem = ({ displayName, photoUrl, date, review }: Props) => {
         />
         <div className="flex flex-col items-start justify-start gap-[2px]">
           <h2 className="text-[16px] text-m_yellow">{displayName}</h2>
-          <h3 className="text-[10px] font-light text-white italic">{date}</h3>
+          <h3 className="text-[10px] font-light text-white italic">{}</h3>
         </div>
       </div>
 

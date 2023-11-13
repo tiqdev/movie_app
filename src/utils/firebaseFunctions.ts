@@ -12,6 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 import { Favorite } from "../models/Movie";
+import { Review } from "../models/Review";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -20,6 +21,7 @@ export const provider = new GoogleAuthProvider();
 export const firestore = getFirestore(app);
 
 export const favoriteMovieCollection = collection(firestore, "favorites");
+export const reviewMovieCollection = collection(firestore, "reviews");
 
 export const getFavorites = async (userId: string) => {
   try {
@@ -64,5 +66,24 @@ export const removeFavorite = async (favoriteId: string) => {
   } catch (e) {
     console.error("Error deleting document: ", e);
     return "error";
+  }
+};
+
+export const getReviews = async (movieId: number) => {
+  try {
+    const movieReviewsQuery = query(
+      reviewMovieCollection,
+      where("movieId", "==", movieId)
+    );
+    const snapshot = await getDocs(movieReviewsQuery);
+    const fetchedReview: Review[] = [];
+
+    snapshot.forEach((doc) => {
+      fetchedReview.push(doc.data() as Review);
+    });
+    return fetchedReview;
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };
