@@ -2,6 +2,7 @@ import path from "path";
 import { Configuration } from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import CopyWebpackPlugin from "copy-webpack-plugin";
+const Dotenv = require("dotenv-webpack");
 
 // added for react-router-dom
 const devServer: DevServerConfiguration = {
@@ -36,6 +37,7 @@ const config: Configuration = {
     path: path.resolve(__dirname, "build"),
   },
   plugins: [
+    new Dotenv(),
     new CopyWebpackPlugin({
       patterns: [{ from: "public" }],
     }),

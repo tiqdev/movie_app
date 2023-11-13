@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Movie } from "../../models/Movie";
 import axios from "axios";
 import { MovieDetail } from "../../models/MovieDetail";
-import { token } from "../../utils/constants";
+import { _token } from "../../utils/constants";
 
 type initialStateType = {
   discoveredMovie: Movie | null;
@@ -229,12 +229,13 @@ export const _searchMovie = createAsyncThunk(
   "movie/searchMovie",
   //this function has to have two parameters, the second one is a page number
   ({ query, page }: { query: string; page: number }) => {
+    let auth_token = _token?.toString().replace(/_/g, ".");
     return axios
       .get(
         `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${auth_token}`,
           },
         }
       )
@@ -247,10 +248,11 @@ export const _searchMovie = createAsyncThunk(
 export const _getMovieDetail = createAsyncThunk(
   "movie/getMovieDetail",
   (id: number) => {
+    let auth_token = _token?.toString().replace(/_/g, ".");
     return axios
       .get(`https://api.themoviedb.org/3/movie/${id}?&language=en-US`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth_token}`,
         },
       })
       .then((response) => {

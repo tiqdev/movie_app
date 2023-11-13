@@ -11,6 +11,12 @@ import AnimatePage from "../../components/common/animatePage";
 import { Link } from "react-router-dom";
 import { useUser } from "../../stores/user/hooks";
 import ReviewTextArea from "../../components/detailpage/reviewTextArea";
+import Poster from "../../components/detailpage/poster";
+import MovieInfo from "../../components/detailpage/movieInfo";
+import ReviewItem from "../../components/detailpage/reviewItem";
+import ReviewList from "../../components/detailpage/reviewList";
+import BackdropImage from "../../components/detailpage/backdropImage";
+import Title from "../../components/common/title";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -50,136 +56,28 @@ const DetailPage = () => {
         {!isLoading && movieDetail && movieDetail?.id !== 0 && (
           <>
             <div className="py-12 relative overflow-hidden">
-              <div className="absolute inset-0 z-10 bg-m_black  h-full overflow-hidden flex justify-start">
-                {movieDetail.backdrop_path !== null && (
-                  <img
-                    src={originalImageUrl + movieDetail.backdrop_path}
-                    className="w-full h-full object-cover filter opacity-10 place-content-start"
-                    alt=""
-                  />
-                )}
-              </div>
+              <BackdropImage backdrop_path={movieDetail.backdrop_path} />
 
               <div className="px-4 w-full max-w-[1280px] mx-auto flex md:flex-row flex-col items-center justify-between relative z-20">
-                {movieDetail.poster_path !== null ? (
-                  <img
-                    src={w780ImageUrl + movieDetail?.poster_path}
-                    className="md:w-[400px] md:h-[600px] w-[300px] h-[450px] md:mr-[100px] mb-[20px] md:mb-0 rounded-xl"
-                    alt={movieDetail?.title}
-                  />
-                ) : (
-                  <div className="md:w-[400px] md:h-[600px] w-[300px] h-[450px] md:mr-[100px] mb-[20px] md:mb-0 rounded-xl bg-gray-500 flex items-center justify-center">
-                    <BsFilm className="w-5 h-5 md:w-6 md:h-6" />
-                  </div>
-                )}
-
-                <div className="flex flex-col md:gap-6 gap-4 flex-1 md:items-start items-center justify-center">
-                  <h1 className="text-2xl md:text-4xl font-bold md:text-start text-center text-m_yellow">
-                    {movieDetail?.title} (
-                    {new Date(movieDetail?.release_date).getFullYear()})
-                  </h1>
-
-                  <GenresList />
-
-                  <div className="flex flex-row gap-4">
-                    <span>
-                      Runtime : {toHoursAndMinutes(movieDetail?.runtime)}
-                    </span>
-                    <span>User Score : {movieDetail?.vote_average} / 10</span>
-                  </div>
-
-                  <h2 className="text-xl md:text-2xl font-medium text-center text-m_yellow mt-4">
-                    Overview
-                  </h2>
-                  <span className="text-light md:text-sm text-[12px] tracking-wide leading-3 md:text-start text-center">
-                    {movieDetail?.overview}
-                  </span>
-                </div>
+                <Poster
+                  poster_path={movieDetail.poster_path}
+                  title={movieDetail.title ?? ""}
+                />
+                <MovieInfo
+                  title={movieDetail.title}
+                  genres={movieDetail.genres}
+                  runtime={movieDetail.runtime}
+                  release_date={movieDetail.release_date}
+                  overview={movieDetail.overview}
+                  vote_average={movieDetail.vote_average}
+                />
               </div>
             </div>
 
             <div className="flex flex-col items-start justify-start w-full max-w-[1280px] px-4 mx-auto pt-10 gap-6">
-              <h1 className="text-2xl md:text-4xl font-bold md:text-start text-center text-m_yellow">
-                Reviews
-              </h1>
-
+              <Title title="Reviews" />
               {user.email && <ReviewTextArea />}
-
-              <div className="flex flex-wrap gap-5">
-                <div className="flex flex-col max-w-[600px] w-full z-10 gap-4  bg-black p-4 rounded-[22px]">
-                  <div className="flex flex-row gap-3 items-center justify-start">
-                    <img
-                      src="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
-                      className="w-14 h-14 rounded-[8px]"
-                      alt=""
-                    />
-                    <div className="flex flex-col items-start justify-start gap-[2px]">
-                      <h2 className="text-[16px] text-m_yellow">Tarık KAYA</h2>
-                      <h3 className="text-[10px] font-light text-white italic">
-                        25/10/2023
-                      </h3>
-                    </div>
-                  </div>
-
-                  <span className="font-light text-[14px] text-gray-50">
-                    The film takes the viewer into the mind of the "Father of
-                    the atomic bomb" how he thinks, how he feels with much
-                    accuracy. Nolan beautifully explains his life both on a
-                    private and professional front. The music, the sounds with
-                    each scene are top notch. The visuals of QUANTUM PHYSICS,
-                    FISSION, NUCLEAR EXPLOSION are mind-boggling.
-                  </span>
-                </div>
-                <div className="flex flex-col max-w-[600px] w-full z-10 gap-4 bg-black p-4 rounded-[12px]">
-                  <div className="flex flex-row gap-2 items-center justify-start">
-                    <img
-                      src="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
-                      className="w-14 h-14 rounded-[8px]"
-                      alt=""
-                    />
-                    <div className="flex flex-col items-start justify-start gap-[2px]">
-                      <h2 className="text-[16px] text-m_yellow">Tarık KAYA</h2>
-                      <h3 className="text-[10px] font-light text-white italic">
-                        25/10/2023
-                      </h3>
-                    </div>
-                  </div>
-
-                  <span className="font-light text-[14px] text-gray-50">
-                    The film takes the viewer into the mind of the "Father of
-                    the atomic bomb" how he thinks, how he feels with much
-                    accuracy. Nolan beautifully explains his life both on a
-                    private and professional front. The music, the sounds with
-                    each scene are top notch. The visuals of QUANTUM PHYSICS,
-                    FISSION, NUCLEAR EXPLOSION are mind-boggling.
-                  </span>
-                </div>
-
-                <div className="flex flex-col max-w-[600px] w-full z-10 gap-4  bg-black p-4 rounded-[22px]">
-                  <div className="flex flex-row gap-3 items-center justify-start">
-                    <img
-                      src="https://secure.gravatar.com/avatar/91ae3af7e82acd51e9cb275bb6c8a777.jpg?s=56"
-                      className="w-14 h-14 rounded-[8px]"
-                      alt=""
-                    />
-                    <div className="flex flex-col items-start justify-start gap-[2px]">
-                      <h2 className="text-[16px] text-m_yellow">Tarık KAYA</h2>
-                      <h3 className="text-[10px] font-light text-white italic">
-                        25/10/2023
-                      </h3>
-                    </div>
-                  </div>
-
-                  <span className="font-light text-[14px] text-gray-50">
-                    The film takes the viewer into the mind of the "Father of
-                    the atomic bomb" how he thinks, how he feels with much
-                    accuracy. Nolan beautifully explains his life both on a
-                    private and professional front. The music, the sounds with
-                    each scene are top notch. The visuals of QUANTUM PHYSICS,
-                    FISSION, NUCLEAR EXPLOSION are mind-boggling.
-                  </span>
-                </div>
-              </div>
+              <ReviewList />
             </div>
           </>
         )}

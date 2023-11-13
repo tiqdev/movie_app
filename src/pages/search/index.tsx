@@ -11,7 +11,6 @@ const SearchPage = () => {
 
   useEffect(() => {
     //if localstorage has user data, set user
-
     resetSearch();
     window.scrollTo(0, 0);
   }, []);
