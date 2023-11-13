@@ -7,7 +7,7 @@ import {
   setSearchedMovies,
 } from "../../../stores/movie/actions";
 import { FaSearch } from "react-icons/fa";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useSearchQuery } from "../../../stores/movie/hooks";
 
 const SearchInput = () => {
@@ -16,10 +16,11 @@ const SearchInput = () => {
   //Debounce the search query for performance optimization
   const request = debounce((query: string) => {
     if (query !== "" && query.length > 2) {
+      console.log("searching for ", query);
       setPage(1);
       searchMovie({ query, page: 1 });
     }
-  }, 500);
+  }, 1000);
 
   const debounceRequest = useCallback((query: string) => request(query), []);
 
@@ -41,6 +42,18 @@ const SearchInput = () => {
         value={query}
         placeholder="Search for a movie"
         onChange={handleOnChange}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            try {
+              (e.target as HTMLElement).blur();
+
+              setPage(1);
+              searchMovie({ query, page: 1 });
+            } catch (e) {
+              console.log(e);
+            }
+          }
+        }}
         className="flex-1 bg-transparent outline-none px-2 py-1 focus:text-white"
       />
       <FaSearch className="w-5 h-5 md:w-6 md:h-6" />
