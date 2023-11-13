@@ -48,3 +48,15 @@ export const useTotalResults = () => {
 export const useSearchIsLoading = () => {
   return useSelector((state: RootState) => state.movie.searchLoading);
 };
+
+export const useFavoriteMovies = () => {
+  return useSelector((state: RootState) => state.movie.favorites);
+};
+
+export const useIsFavoriteLoading = () => {
+  return useSelector((state: RootState) => state.movie.favoritesLoading);
+};
+
+export const useDropdownIsActive = () => {
+  return useSelector((state: RootState) => state.movie.dropDownIsActive);
+};

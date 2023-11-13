@@ -2,6 +2,7 @@ import { Genre } from "../../../models/MovieDetail";
 import { useMovieDetail } from "../../../stores/movie/hooks";
 import { toHoursAndMinutes } from "../../../utils/functions";
 import Title from "../../common/title";
+import FavoriteStar from "../favoriteStar";
 import GenresList from "../genresList";
 
 interface MovieInfoProps {

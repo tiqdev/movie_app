@@ -1,8 +1,17 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Movie } from "../../models/Movie";
+import { Favorite, Movie } from "../../models/Movie";
 import axios from "axios";
 import { MovieDetail } from "../../models/MovieDetail";
 import { _token } from "../../utils/constants";
+import {
+  addFavorite,
+  favoriteMovieCollection,
+  getFavorites,
+  removeFavorite,
+} from "../../utils/firebaseFunctions";
+import { DocumentData, QuerySnapshot, onSnapshot } from "firebase/firestore";
+import { toast } from "sonner";
+import { removeFavoriteMovie } from "./actions";
 
 type initialStateType = {
   discoveredMovie: Movie | null;
@@ -15,10 +24,17 @@ type initialStateType = {
   searchError: string;
   searchQuery: string;
   searchActive: boolean;
+
+  favoritesLoading: boolean;
+  favoritesError: string;
+  favorites: Favorite[];
+
   movieDetail: MovieDetail | null;
   page: number;
   totalPages: number;
   totalResults: number;
+
+  dropDownIsActive: boolean;
 };
 
 const initialState: initialStateType = {
@@ -41,7 +57,6 @@ const initialState: initialStateType = {
     vote_average: 7.7,
     vote_count: 2131,
   },
-
   movie: {
     adult: false,
     backdrop_path: "",
@@ -58,7 +73,6 @@ const initialState: initialStateType = {
     vote_average: 0,
     vote_count: 0,
   },
-
   movieDetail: {
     adult: false,
     backdrop_path: "",
@@ -114,11 +128,8 @@ const initialState: initialStateType = {
     vote_average: 0,
     vote_count: 0,
   },
-
   movies: [],
-
   searchedMovies: [],
-
   searchQuery: "",
   page: 1,
 
@@ -129,8 +140,14 @@ const initialState: initialStateType = {
   searchError: "Movie Not Found !",
   searchActive: false,
 
+  favoritesLoading: false,
+  favoritesError: "Movie Not Found !",
+  favorites: [],
+
   totalPages: 0,
   totalResults: 0,
+
+  dropDownIsActive: false,
 };
 
 export const MovieSlice = createSlice({
@@ -178,9 +195,14 @@ export const MovieSlice = createSlice({
     _setTotalResults: (state, action: PayloadAction<number>) => {
       state.totalResults = action.payload;
     },
+
+    _setDropDownIsActive: (state, action: PayloadAction<boolean>) => {
+      state.dropDownIsActive = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
+    //search movie
     builder.addCase(_searchMovie.pending, (state) => {
       state.searchLoading = true;
       state.searchError = "";
@@ -209,6 +231,7 @@ export const MovieSlice = createSlice({
       state.searchError = "Calm Down!";
     });
 
+    //get movie detail
     builder.addCase(_getMovieDetail.pending, (state) => {
       state.loading = true;
       state.error = "";
@@ -221,6 +244,51 @@ export const MovieSlice = createSlice({
     builder.addCase(_getMovieDetail.rejected, (state) => {
       state.loading = false;
       state.error = "Calm Down!";
+    });
+
+    //get favorite movies
+    builder.addCase(_getFavoriteMovies.pending, (state) => {
+      state.favoritesLoading = true;
+      state.favoritesError = "";
+    });
+    builder.addCase(_getFavoriteMovies.fulfilled, (state, action) => {
+      state.favoritesLoading = false;
+      state.favorites = action.payload;
+      state.favoritesError = "";
+    });
+    builder.addCase(_getFavoriteMovies.rejected, (state) => {
+      state.favoritesLoading = false;
+      toast.error("Error getting favorites");
+    });
+
+    //add favorite movie
+    builder.addCase(_addFavoriteMovie.pending, (state) => {
+      state.favoritesLoading = true;
+      state.favoritesError = "";
+    });
+    builder.addCase(_addFavoriteMovie.fulfilled, (state, action) => {
+      state.favoritesLoading = false;
+      state.favoritesError = "";
+      state.favorites = action.payload;
+    });
+    builder.addCase(_addFavoriteMovie.rejected, (state) => {
+      state.favoritesLoading = false;
+      toast.error("Error adding favorite");
+    });
+
+    //remove favorite movie
+    builder.addCase(_removeFavoriteMovie.pending, (state) => {
+      state.favoritesLoading = true;
+      state.favoritesError = "";
+    });
+    builder.addCase(_removeFavoriteMovie.fulfilled, (state, action) => {
+      state.favoritesLoading = false;
+      state.favoritesError = "";
+      state.favorites = action.payload;
+    });
+    builder.addCase(_removeFavoriteMovie.rejected, (state) => {
+      state.favoritesLoading = false;
+      toast.error("Error removing favorite");
     });
   },
 });
@@ -261,6 +329,43 @@ export const _getMovieDetail = createAsyncThunk(
   }
 );
 
+export const _getFavoriteMovies = createAsyncThunk(
+  "movie/getFavoriteMovies",
+  async (userId: string) => {
+    const fetchedFavorites = await getFavorites(userId);
+    return fetchedFavorites;
+  }
+);
+
+export const _addFavoriteMovie = createAsyncThunk(
+  "movie/addFavoriteMovie",
+  async (favorite: Favorite) => {
+    const result = await addFavorite(favorite);
+    let fetchedFavorites: Favorite[] = [];
+
+    if (result !== "") {
+      toast.success("Movie added to favorites");
+      fetchedFavorites = await getFavorites(favorite.userId);
+    }
+    return fetchedFavorites;
+  }
+);
+
+export const _removeFavoriteMovie = createAsyncThunk(
+  "movie/removeFavoriteMovie",
+  async (favorite: Favorite) => {
+    const result = await removeFavorite(favorite.favoriteId);
+
+    let fetchedFavorites: Favorite[] = [];
+
+    if (result !== "error") {
+      toast.success("Movie removed from favorites");
+      fetchedFavorites = await getFavorites(favorite.userId);
+    }
+    return fetchedFavorites;
+  }
+);
+
 export const {
   _setIsLoading,
   _setMovie,
@@ -274,6 +379,7 @@ export const {
   _setPage,
   _setTotalPages,
   _setTotalResults,
+  _setDropDownIsActive,
 } = MovieSlice.actions;
 
 export default MovieSlice.reducer;

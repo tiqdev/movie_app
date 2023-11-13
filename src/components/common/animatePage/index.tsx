@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { setDropdownIsActive } from "../../../stores/movie/actions";
 
 const AnimatePage = ({ children }: { children: React.ReactNode }) => {
   const animation = {
@@ -14,6 +15,9 @@ const AnimatePage = ({ children }: { children: React.ReactNode }) => {
       animate="animate"
       exit="exit"
       transition={{ duration: 0.5 }}
+      onClick={() => {
+        setDropdownIsActive(false);
+      }}
     >
       {children}
     </motion.div>

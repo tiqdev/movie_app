@@ -3,6 +3,7 @@ import WebLayout from "../layouts/web";
 import SearchPage from "../pages/search";
 import ListPage from "../pages/list";
 import DetailPage from "../pages/detail";
+import FavoritesPage from "../pages/favorites";
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const routes = createBrowserRouter([
       {
         path: "/detail/:id",
         element: <DetailPage />,
+      },
+      {
+        path: "/favorites/",
+        element: <FavoritesPage />,
       },
     ],
   },

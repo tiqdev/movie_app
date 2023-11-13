@@ -1,5 +1,4 @@
 import { BsFilm } from "react-icons/bs";
-import { useMovieDetail } from "../../../stores/movie/hooks";
 import { w780ImageUrl } from "../../../utils/constants";
 
 interface PosterProps {

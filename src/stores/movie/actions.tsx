@@ -1,9 +1,13 @@
 import store from "..";
 import {
+  _addFavoriteMovie,
+  _getFavoriteMovies,
   _getMovieDetail,
+  _removeFavoriteMovie,
   _resetSearch,
   _searchMovie,
   _setDiscoveredMovie,
+  _setDropDownIsActive,
   _setError,
   _setIsLoading,
   _setMovie,
@@ -15,7 +19,7 @@ import {
   _setTotalPages,
   _setTotalResults,
 } from ".";
-import { Movie } from "../../models/Movie";
+import { Favorite, Movie } from "../../models/Movie";
 import { MovieDetail } from "../../models/MovieDetail";
 
 export const setIsLoading = (isLoading: boolean) => {
@@ -78,4 +82,20 @@ export const setTotalPages = (totalPages: number) => {
 
 export const setTotalResults = (totalResults: number) => {
   store.dispatch(_setTotalResults(totalResults));
+};
+
+export const getFavoriteMovies = (userid: string) => {
+  return store.dispatch(_getFavoriteMovies(userid));
+};
+
+export const addFavoriteMovie = (favorite: Favorite) => {
+  return store.dispatch(_addFavoriteMovie(favorite));
+};
+
+export const removeFavoriteMovie = (favorite: Favorite) => {
+  return store.dispatch(_removeFavoriteMovie(favorite));
+};
+
+export const setDropdownIsActive = (dropdownIsActive: boolean) => {
+  return store.dispatch(_setDropDownIsActive(dropdownIsActive));
 };

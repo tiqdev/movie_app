@@ -14,3 +14,13 @@ export interface Movie {
   vote_average: number;
   vote_count: number;
 }
+
+export interface Favorite {
+  userId: string;
+  favoriteId: string;
+  movieId: number;
+  poster: string;
+  title: string;
+  overview: string;
+  backdrop: string;
+}
