@@ -55,6 +55,14 @@ const FavoritesPage = () => {
           {favorites?.map((favorite: Favorite, index: number) => (
             <FavoriteItem favorite={favorite} key={index} />
           ))}
+
+          {favorites?.length === 0 && (
+            <div className="flex flex-col items-center justify-center gap-4 w-full">
+              <h1 className="text-[20px] text-white font-medium">
+                You don't have any favorite movies.
+              </h1>
+            </div>
+          )}
         </div>
       </div>
     </AnimatePage>

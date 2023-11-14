@@ -1,6 +1,7 @@
 import store from "..";
 import {
   _addFavoriteMovie,
+  _addMovieReview,
   _getFavoriteMovies,
   _getMovieDetail,
   _getMovieReviews,
@@ -14,6 +15,7 @@ import {
   _setMovie,
   _setMovieDetail,
   _setPage,
+  _setReviewTextArea,
   _setSearchActive,
   _setSearchQuery,
   _setSearchedMovies,
@@ -103,4 +105,12 @@ export const setDropdownIsActive = (dropdownIsActive: boolean) => {
 
 export const getMovieReview = (movieId: number) => {
   return store.dispatch(_getMovieReviews(movieId));
+};
+
+export const addMovieReview = (review: any) => {
+  return store.dispatch(_addMovieReview(review));
+};
+
+export const setReviewTextArea = (review: string) => {
+  return store.dispatch(_setReviewTextArea(review));
 };

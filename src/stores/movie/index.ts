@@ -5,6 +5,7 @@ import { MovieDetail } from "../../models/MovieDetail";
 import { _token } from "../../utils/constants";
 import {
   addFavorite,
+  addReview,
   favoriteMovieCollection,
   getFavorites,
   getReviews,
@@ -41,6 +42,8 @@ type initialStateType = {
   reviews: Review[];
   reviewsLoading: boolean;
   reviewsError: string;
+
+  reviewTextArea: string;
 };
 
 const initialState: initialStateType = {
@@ -158,6 +161,7 @@ const initialState: initialStateType = {
   reviews: [],
   reviewsLoading: false,
   reviewsError: "",
+  reviewTextArea: "",
 };
 
 export const MovieSlice = createSlice({
@@ -208,6 +212,10 @@ export const MovieSlice = createSlice({
 
     _setDropDownIsActive: (state, action: PayloadAction<boolean>) => {
       state.dropDownIsActive = action.payload;
+    },
+
+    _setReviewTextArea: (state, action: PayloadAction<string>) => {
+      state.reviewTextArea = action.payload;
     },
   },
 
@@ -315,6 +323,21 @@ export const MovieSlice = createSlice({
       state.reviewsLoading = false;
       toast.error("Error getting reviews");
     });
+
+    //add movie review
+    builder.addCase(_addMovieReview.pending, (state) => {
+      state.reviewsLoading = true;
+      state.reviewsError = "";
+    });
+    builder.addCase(_addMovieReview.fulfilled, (state, action) => {
+      state.reviewsLoading = false;
+      state.reviewsError = "";
+      state.reviews = action.payload;
+    });
+    builder.addCase(_addMovieReview.rejected, (state) => {
+      state.reviewsLoading = false;
+      toast.error("Error adding review");
+    });
   },
 });
 
@@ -400,6 +423,20 @@ export const _getMovieReviews = createAsyncThunk(
   }
 );
 
+export const _addMovieReview = createAsyncThunk(
+  "movie/addMovieReview",
+  async (review: Review) => {
+    const result = await addReview(review);
+    let fetchedReviews: Review[] = [];
+
+    if (result !== "") {
+      toast.success("Review added");
+      fetchedReviews = await getReviews(review.movieId);
+    }
+    return fetchedReviews;
+  }
+);
+
 export const {
   _setIsLoading,
   _setMovie,
@@ -414,6 +451,7 @@ export const {
   _setTotalPages,
   _setTotalResults,
   _setDropDownIsActive,
+  _setReviewTextArea,
 } = MovieSlice.actions;
 
 export default MovieSlice.reducer;

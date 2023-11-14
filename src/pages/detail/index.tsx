@@ -9,6 +9,7 @@ import {
 import {
   useIsFavoriteLoading,
   useIsLoading,
+  useIsReviewLoading,
   useMovieDetail,
 } from "../../stores/movie/hooks";
 import Loading from "../../components/common/loading";
@@ -28,6 +29,7 @@ const DetailPage = () => {
   const movieDetail = useMovieDetail();
   const isLoading = useIsLoading();
   const isFavoriteLoading = useIsFavoriteLoading();
+  const isReviewLoading = useIsReviewLoading();
   const user = useUser();
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const DetailPage = () => {
   return (
     <AnimatePage>
       <div className="mt-[80px] w-full pb-[40px]">
-        {(isFavoriteLoading || isLoading) && (
+        {(isFavoriteLoading || isLoading || isReviewLoading) && (
           <div className="flex justify-center items-center h-screen w-full bg-transparent">
             <Loading />
           </div>

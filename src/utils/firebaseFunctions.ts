@@ -10,6 +10,7 @@ import {
   getFirestore,
   query,
   where,
+  Timestamp,
 } from "firebase/firestore";
 import { Favorite } from "../models/Movie";
 import { Review } from "../models/Review";
@@ -19,6 +20,10 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 export const firestore = getFirestore(app);
+
+export const convertToFirebaseTimeStamp = (date: Date) => {
+  return Timestamp.fromDate(date);
+};
 
 export const favoriteMovieCollection = collection(firestore, "favorites");
 export const reviewMovieCollection = collection(firestore, "reviews");
@@ -85,5 +90,15 @@ export const getReviews = async (movieId: number) => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+export const addReview = async (review: Review) => {
+  try {
+    const docRef = await addDoc(reviewMovieCollection, review);
+    return docRef.id;
+  } catch (e) {
+    console.error("Error adding document: ", e);
+    return "";
   }
 };

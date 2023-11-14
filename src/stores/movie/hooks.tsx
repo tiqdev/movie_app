@@ -64,3 +64,11 @@ export const useDropdownIsActive = () => {
 export const useReviews = () => {
   return useSelector((state: RootState) => state.movie.reviews);
 };
+
+export const useReviewTextArea = () => {
+  return useSelector((state: RootState) => state.movie.reviewTextArea);
+};
+
+export const useIsReviewLoading = () => {
+  return useSelector((state: RootState) => state.movie.reviewsLoading);
+};
