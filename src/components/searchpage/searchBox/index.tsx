@@ -77,6 +77,7 @@ const SearchBox = () => {
                       whileHover={{ scale: 1.2 }}
                       className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
                       onClick={() => handleFavorite(movie)}
+                      data-testid={isFavorite ? "favorite" : "not-favorite"}
                     >
                       {isFavorite ? (
                         <AiFillStar className="text-m_yellow z-20" />
