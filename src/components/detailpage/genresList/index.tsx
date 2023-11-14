@@ -1,5 +1,4 @@
 import { Genre } from "../../../models/MovieDetail";
-import { useMovieDetail } from "../../../stores/movie/hooks";
 import Badge from "../../common/badge";
 
 interface GenresListProps {

@@ -1,7 +1,6 @@
-import { Timestamp } from "firebase/firestore";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { removeMovieReview } from "../../../stores/movie/actions";
 import { Review } from "../../../models/Review";
+import { removeMovieReview } from "../../../stores/movie/actions";
 import { useUser } from "../../../stores/user/hooks";
 
 interface Props {

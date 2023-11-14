@@ -1,14 +1,14 @@
-import { Outlet } from "react-router-dom";
-import Header from "../../components/header";
 import Div100vh from "react-div-100vh";
+import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
+import Loading from "../../components/common/loading";
+import Header from "../../components/header";
 import { setDropdownIsActive } from "../../stores/movie/actions";
 import {
   useIsFavoriteLoading,
   useIsReviewLoading,
 } from "../../stores/movie/hooks";
 import { useIsLoading } from "../../stores/user/hooks";
-import Loading from "../../components/common/loading";
 
 const WebLayout = () => {
   const isFavoriteLoading = useIsFavoriteLoading();

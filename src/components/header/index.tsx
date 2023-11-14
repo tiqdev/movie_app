@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useUser } from "../../stores/user/hooks";
-import GoogleLogin from "./google_login";
-import LogoButton from "./logo_button";
-import { setUser } from "../../stores/user/actions";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   getFavoriteMovies,
   setDropdownIsActive,
 } from "../../stores/movie/actions";
-import { Link } from "react-router-dom";
 import { useDropdownIsActive } from "../../stores/movie/hooks";
+import { setUser } from "../../stores/user/actions";
+import { useUser } from "../../stores/user/hooks";
+import GoogleLogin from "./google_login";
+import LogoButton from "./logo_button";
 
 const Header = () => {
   const user = useUser();

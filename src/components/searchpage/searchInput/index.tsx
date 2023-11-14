@@ -1,4 +1,6 @@
-import { debounce, set } from "lodash";
+import { debounce } from "lodash";
+import { useCallback } from "react";
+import { FaSearch } from "react-icons/fa";
 import {
   searchMovie,
   setPage,
@@ -6,8 +8,6 @@ import {
   setSearchQuery,
   setSearchedMovies,
 } from "../../../stores/movie/actions";
-import { FaSearch } from "react-icons/fa";
-import { useCallback } from "react";
 import { useSearchQuery } from "../../../stores/movie/hooks";
 
 const SearchInput = () => {

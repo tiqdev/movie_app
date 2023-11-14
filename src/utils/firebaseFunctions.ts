@@ -1,19 +1,18 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { firebaseConfig } from "./constants";
 import {
   addDoc,
   collection,
   deleteDoc,
-  doc,
   getDocs,
   getFirestore,
   query,
-  where,
   Timestamp,
+  where,
 } from "firebase/firestore";
 import { Favorite } from "../models/Movie";
 import { Review } from "../models/Review";
+import { firebaseConfig } from "./constants";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

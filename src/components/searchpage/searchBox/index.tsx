@@ -1,5 +1,12 @@
 import { Favorite, Movie } from "../../../models/Movie";
 
+import { motion } from "framer-motion";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import {
+  addFavoriteMovie,
+  removeFavoriteMovie,
+} from "../../../stores/movie/actions";
 import {
   useFavoriteMovies,
   useIsFavoriteLoading,
@@ -8,19 +15,11 @@ import {
   useSearchQuery,
   useSearchedMovies,
 } from "../../../stores/movie/hooks";
-import SearchInput from "../searchInput";
-import { Link } from "react-router-dom";
-import SearchListItem from "../searchListItem";
+import { useUser } from "../../../stores/user/hooks";
 import ErrorText from "../../common/errorText";
 import Loading from "../../common/loading";
-import { motion } from "framer-motion";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useUser } from "../../../stores/user/hooks";
-import { MovieDetail } from "../../../models/MovieDetail";
-import {
-  addFavoriteMovie,
-  removeFavoriteMovie,
-} from "../../../stores/movie/actions";
+import SearchInput from "../searchInput";
+import SearchListItem from "../searchListItem";
 
 const SearchBox = () => {
   const searchedMovies = useSearchedMovies();

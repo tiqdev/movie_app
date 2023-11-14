@@ -1,8 +1,8 @@
+import { BsFilm } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Movie } from "../../../models/Movie";
-import { truncateAndAddEllipsis } from "../../../utils/functions";
 import { w500ImageUrl } from "../../../utils/constants";
-import { BsFilm } from "react-icons/bs";
+import { truncateAndAddEllipsis } from "../../../utils/functions";
 
 const SearchListItem = ({ movie }: { movie: Movie }) => {
   return (

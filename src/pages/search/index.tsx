@@ -1,10 +1,9 @@
 import { useEffect } from "react";
+import AnimatePage from "../../components/common/animatePage";
 import BackdropImage from "../../components/searchpage/backdropImage";
 import SearchBox from "../../components/searchpage/searchBox";
-import { useDiscoveredMovie } from "../../stores/movie/hooks";
 import { resetSearch } from "../../stores/movie/actions";
-import AnimatePage from "../../components/common/animatePage";
-import { setUser } from "../../stores/user/actions";
+import { useDiscoveredMovie } from "../../stores/movie/hooks";
 
 const SearchPage = () => {
   const discoveredMovie = useDiscoveredMovie();

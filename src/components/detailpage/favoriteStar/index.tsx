@@ -1,12 +1,10 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useFavoriteMovies } from "../../../stores/movie/hooks";
-import { useUser } from "../../../stores/user/hooks";
+import { MovieDetail } from "../../../models/MovieDetail";
 import {
   addFavoriteMovie,
   removeFavoriteMovie,
 } from "../../../stores/movie/actions";
-import { Movie } from "../../../models/Movie";
-import { MovieDetail } from "../../../models/MovieDetail";
+import { useFavoriteMovies } from "../../../stores/movie/hooks";
 
 interface FavoriteStarProps {
   userId: string;

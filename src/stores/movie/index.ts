@@ -1,21 +1,18 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Favorite, Movie } from "../../models/Movie";
 import axios from "axios";
+import { toast } from "sonner";
+import { Favorite, Movie } from "../../models/Movie";
 import { MovieDetail } from "../../models/MovieDetail";
+import { Review } from "../../models/Review";
 import { _token } from "../../utils/constants";
 import {
   addFavorite,
   addReview,
-  favoriteMovieCollection,
   getFavorites,
   getReviews,
   removeFavorite,
   removeReview,
 } from "../../utils/firebaseFunctions";
-import { DocumentData, QuerySnapshot, onSnapshot } from "firebase/firestore";
-import { toast } from "sonner";
-import { removeFavoriteMovie } from "./actions";
-import { Review } from "../../models/Review";
 
 type initialStateType = {
   discoveredMovie: Movie | null;

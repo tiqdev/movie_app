@@ -1,6 +1,18 @@
-import { useParams } from "react-router";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import AnimatePage from "../../components/common/animatePage";
+import Loading from "../../components/common/loading";
+import ScrollToTop from "../../components/common/scrollToTop";
+import SearchInput from "../../components/searchpage/searchInput";
 import SearchListItem from "../../components/searchpage/searchListItem";
 import { Favorite, Movie } from "../../models/Movie";
+import {
+  addFavoriteMovie,
+  removeFavoriteMovie,
+  searchMovie,
+} from "../../stores/movie/actions";
 import {
   useFavoriteMovies,
   useIsFavoriteLoading,
@@ -12,20 +24,7 @@ import {
   useTotalPages,
   useTotalResults,
 } from "../../stores/movie/hooks";
-import { useEffect } from "react";
-import {
-  addFavoriteMovie,
-  removeFavoriteMovie,
-  searchMovie,
-} from "../../stores/movie/actions";
-import SearchInput from "../../components/searchpage/searchInput";
-import AnimatePage from "../../components/common/animatePage";
-import Loading from "../../components/common/loading";
-import useInfiniteScroll from "react-infinite-scroll-hook";
-import ScrollToTop from "../../components/common/scrollToTop";
 import { useUser } from "../../stores/user/hooks";
-import { motion } from "framer-motion";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const ListPage = () => {
   const searchedMovies = useSearchedMovies();

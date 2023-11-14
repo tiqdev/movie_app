@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../utils/firebaseFunctions";
 import { User } from "../../models/GoogleLogin";
+import { auth, provider } from "../../utils/firebaseFunctions";
 
 type initialStateType = {
   user: User;

@@ -1,21 +1,19 @@
-import SearchListItem from "../../components/searchpage/searchListItem";
-import { Favorite, Movie } from "../../models/Movie";
-import {
-  useFavoriteMovies,
-  useIsFavoriteLoading,
-} from "../../stores/movie/hooks";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { FaMinusCircle } from "react-icons/fa";
+import AnimatePage from "../../components/common/animatePage";
+import ScrollToTop from "../../components/common/scrollToTop";
+import Title from "../../components/common/title";
+import FavoriteItem from "../../components/favoritespage/favoriteItem";
+import { Favorite } from "../../models/Movie";
 import {
   getFavoriteMovies,
   removeFavoriteMovie,
 } from "../../stores/movie/actions";
-import AnimatePage from "../../components/common/animatePage";
-import Loading from "../../components/common/loading";
-import ScrollToTop from "../../components/common/scrollToTop";
-import Title from "../../components/common/title";
-import FavoriteItem from "../../components/favoritespage/favoriteItem";
-import { FaMinusCircle } from "react-icons/fa";
-import { motion } from "framer-motion";
+import {
+  useFavoriteMovies,
+  useIsFavoriteLoading,
+} from "../../stores/movie/hooks";
 
 const FavoritesPage = () => {
   const favorites = useFavoriteMovies();
