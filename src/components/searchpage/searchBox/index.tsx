@@ -72,27 +72,19 @@ const SearchBox = () => {
               return (
                 <div className="relative" key={index}>
                   <SearchListItem movie={movie} />
-
-                  <motion.div
-                    whileHover={{ scale: 1.2 }}
-                    className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
-                    onClick={() => {
-                      //
-                    }}
-                  >
-                    {user.email !== "" &&
-                      (isFavorite ? (
-                        <AiFillStar
-                          className="text-m_yellow z-20"
-                          onClick={() => handleFavorite(movie)}
-                        />
+                  {user.email !== "" && (
+                    <motion.div
+                      whileHover={{ scale: 1.2 }}
+                      className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
+                      onClick={() => handleFavorite(movie)}
+                    >
+                      {isFavorite ? (
+                        <AiFillStar className="text-m_yellow z-20" />
                       ) : (
-                        <AiOutlineStar
-                          className="text-m_yellow z-20"
-                          onClick={() => handleFavorite(movie)}
-                        />
-                      ))}
-                  </motion.div>
+                        <AiOutlineStar className="text-m_yellow z-20" />
+                      )}
+                    </motion.div>
+                  )}
                 </div>
               );
             })}

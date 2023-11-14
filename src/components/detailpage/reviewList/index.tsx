@@ -6,7 +6,7 @@ const ReviewList = () => {
   return (
     <div className="flex flex-wrap gap-5">
       {reviews.map((review) => (
-        <ReviewItem review={review} />
+        <ReviewItem review={review} key={review.reviewId} />
       ))}
     </div>
   );
