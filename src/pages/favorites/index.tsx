@@ -5,7 +5,10 @@ import {
   useIsFavoriteLoading,
 } from "../../stores/movie/hooks";
 import { useEffect } from "react";
-import { removeFavoriteMovie } from "../../stores/movie/actions";
+import {
+  getFavoriteMovies,
+  removeFavoriteMovie,
+} from "../../stores/movie/actions";
 import AnimatePage from "../../components/common/animatePage";
 import Loading from "../../components/common/loading";
 import ScrollToTop from "../../components/common/scrollToTop";
@@ -17,6 +20,13 @@ import { motion } from "framer-motion";
 const FavoritesPage = () => {
   const favorites = useFavoriteMovies();
   const favoritesIsLoading = useIsFavoriteLoading();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user")!);
+    if (user) {
+      getFavoriteMovies(user.uid);
+    }
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,7 +52,7 @@ const FavoritesPage = () => {
           </div>
         )}
 
-        {favorites?.length > 0 && (
+        {!favoritesIsLoading && favorites?.length > 0 && (
           <div className="flex flex-col gap-4 my-5 mb-[100px] mt-[20px] w-full">
             {favorites?.map((favorite: Favorite, index: number) => (
               <div className="relative" key={index}>

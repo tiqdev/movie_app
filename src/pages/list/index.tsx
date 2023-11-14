@@ -89,46 +89,44 @@ const ListPage = () => {
           </div>
         </div>
 
-        {isSearchLoading && <Loading />}
+        {(isSearchLoading || isLoading) && <Loading />}
 
-        {!isSearchLoading && (
-          <div className="flex flex-col gap-4 my-5 mb-[100px] md:mt-[50px] mt-[20px] w-full">
-            {searchedMovies?.map((movie: Movie, index: number) => {
-              let isFavorite = favoriteMovies.find(
-                (favoriteMovie: Favorite) => favoriteMovie.movieId === movie.id
-              );
+        <div className="flex flex-col gap-4 my-5 mb-[100px] md:mt-[50px] mt-[20px] w-full">
+          {searchedMovies?.map((movie: Movie, index: number) => {
+            let isFavorite = favoriteMovies.find(
+              (favoriteMovie: Favorite) => favoriteMovie.movieId === movie.id
+            );
 
-              return (
-                <div className="relative" key={index}>
-                  <SearchListItem movie={movie} />
+            return (
+              <div className="relative" key={index}>
+                <SearchListItem movie={movie} />
 
-                  <motion.div
-                    whileHover={{ scale: 1.2 }}
-                    className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
-                    onClick={() => handleFavorite(movie)}
-                  >
-                    {user.email !== "" &&
-                      (isFavorite ? (
-                        <AiFillStar className="text-m_yellow z-20" />
-                      ) : (
-                        <AiOutlineStar className="text-m_yellow z-20" />
-                      ))}
-                  </motion.div>
-                </div>
-              );
-            })}
-
-            {totalResults === searchedMovies.length && (
-              <div className="text-white text-center">No more results</div>
-            )}
-
-            {page <= totalPages && !isSearchLoading && (
-              <div ref={sentryRef}>
-                <Loading />
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
+                  onClick={() => handleFavorite(movie)}
+                >
+                  {user.email !== "" &&
+                    (isFavorite ? (
+                      <AiFillStar className="text-m_yellow z-20" />
+                    ) : (
+                      <AiOutlineStar className="text-m_yellow z-20" />
+                    ))}
+                </motion.div>
               </div>
-            )}
-          </div>
-        )}
+            );
+          })}
+
+          {totalResults === searchedMovies.length && (
+            <div className="text-white text-center">No more results</div>
+          )}
+
+          {page <= totalPages && !isLoading && !isSearchLoading && (
+            <div ref={sentryRef}>
+              <Loading />
+            </div>
+          )}
+        </div>
       </div>
     </AnimatePage>
   );

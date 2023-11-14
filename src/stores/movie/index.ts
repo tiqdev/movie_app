@@ -301,7 +301,9 @@ export const MovieSlice = createSlice({
     });
     builder.addCase(_removeFavoriteMovie.fulfilled, (state, action) => {
       state.favorites = action.payload;
+      console.log(action.payload, "payload favorites");
       state.favoritesLoading = false;
+
       state.favoritesError = "";
     });
     builder.addCase(_removeFavoriteMovie.rejected, (state) => {
@@ -346,6 +348,7 @@ export const MovieSlice = createSlice({
     });
     builder.addCase(_removeMovieReview.fulfilled, (state, action) => {
       state.reviews = action.payload;
+      console.log(action.payload, "payload");
       state.reviewsLoading = false;
       state.reviewsError = "";
     });
