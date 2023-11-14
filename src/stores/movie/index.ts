@@ -227,8 +227,6 @@ export const MovieSlice = createSlice({
       state.searchError = "";
     });
     builder.addCase(_searchMovie.fulfilled, (state, action) => {
-      state.searchLoading = false;
-
       if (state.page > 1) {
         state.searchedMovies = state.searchedMovies.concat(
           action.payload.results
@@ -243,6 +241,7 @@ export const MovieSlice = createSlice({
       }
       state.searchActive = true;
       state.searchError = "";
+      state.searchLoading = false;
       state.page = state.page + 1;
     });
     builder.addCase(_searchMovie.rejected, (state) => {
@@ -256,8 +255,8 @@ export const MovieSlice = createSlice({
       state.error = "";
     });
     builder.addCase(_getMovieDetail.fulfilled, (state, action) => {
-      state.loading = false;
       state.movieDetail = action.payload;
+      state.loading = false;
       state.error = "";
     });
     builder.addCase(_getMovieDetail.rejected, (state) => {
@@ -271,8 +270,8 @@ export const MovieSlice = createSlice({
       state.favoritesError = "";
     });
     builder.addCase(_getFavoriteMovies.fulfilled, (state, action) => {
-      state.favoritesLoading = false;
       state.favorites = action.payload;
+      state.favoritesLoading = false;
       state.favoritesError = "";
     });
     builder.addCase(_getFavoriteMovies.rejected, (state) => {
@@ -286,9 +285,9 @@ export const MovieSlice = createSlice({
       state.favoritesError = "";
     });
     builder.addCase(_addFavoriteMovie.fulfilled, (state, action) => {
+      state.favorites = action.payload;
       state.favoritesLoading = false;
       state.favoritesError = "";
-      state.favorites = action.payload;
     });
     builder.addCase(_addFavoriteMovie.rejected, (state) => {
       state.favoritesLoading = false;
@@ -301,9 +300,9 @@ export const MovieSlice = createSlice({
       state.favoritesError = "";
     });
     builder.addCase(_removeFavoriteMovie.fulfilled, (state, action) => {
+      state.favorites = action.payload;
       state.favoritesLoading = false;
       state.favoritesError = "";
-      state.favorites = action.payload;
     });
     builder.addCase(_removeFavoriteMovie.rejected, (state) => {
       state.favoritesLoading = false;
@@ -316,9 +315,9 @@ export const MovieSlice = createSlice({
       state.reviewsError = "";
     });
     builder.addCase(_getMovieReviews.fulfilled, (state, action) => {
+      state.reviews = action.payload;
       state.reviewsLoading = false;
       state.reviewsError = "";
-      state.reviews = action.payload;
     });
     builder.addCase(_getMovieReviews.rejected, (state) => {
       state.reviewsLoading = false;
@@ -331,9 +330,9 @@ export const MovieSlice = createSlice({
       state.reviewsError = "";
     });
     builder.addCase(_addMovieReview.fulfilled, (state, action) => {
+      state.reviews = action.payload;
       state.reviewsLoading = false;
       state.reviewsError = "";
-      state.reviews = action.payload;
     });
     builder.addCase(_addMovieReview.rejected, (state) => {
       state.reviewsLoading = false;
@@ -346,9 +345,9 @@ export const MovieSlice = createSlice({
       state.reviewsError = "";
     });
     builder.addCase(_removeMovieReview.fulfilled, (state, action) => {
+      state.reviews = action.payload;
       state.reviewsLoading = false;
       state.reviewsError = "";
-      state.reviews = action.payload;
     });
     builder.addCase(_removeMovieReview.rejected, (state) => {
       state.reviewsLoading = false;
