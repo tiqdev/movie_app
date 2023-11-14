@@ -64,9 +64,8 @@ export const removeFavorite = async (favoriteId: string) => {
       where("favoriteId", "==", favoriteId)
     );
     const snapshot = await getDocs(delete_query);
-    snapshot.forEach((doc) => {
-      deleteDoc(doc.ref);
-    });
+    const item = snapshot.docs[0];
+    await deleteDoc(item.ref);
     return "success";
   } catch (e) {
     console.error("Error deleting document: ", e);
@@ -112,7 +111,6 @@ export const removeReview = async (reviewId: string) => {
     const snapshot = await getDocs(delete_query);
     const item = snapshot.docs[0];
     await deleteDoc(item.ref);
-    console.log("Document successfully deleted!");
     return "success";
   } catch (e) {
     console.error("Error deleting document: ", e);
