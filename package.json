@@ -31,6 +31,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.1",
     "copy-webpack-plugin": "^11.0.0",

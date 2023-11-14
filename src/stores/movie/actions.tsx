@@ -9,6 +9,7 @@ import {
   _removeMovieReview,
   _resetSearch,
   _searchMovie,
+  _sendToFriend,
   _setDiscoveredMovie,
   _setDropDownIsActive,
   _setError,
@@ -20,6 +21,7 @@ import {
   _setSearchActive,
   _setSearchQuery,
   _setSearchedMovies,
+  _setSuggestionsInput,
   _setTotalPages,
   _setTotalResults,
 } from ".";
@@ -119,4 +121,12 @@ export const removeMovieReview = (review: Review) => {
 
 export const setReviewTextArea = (review: string) => {
   return store.dispatch(_setReviewTextArea(review));
+};
+
+export const setSuggestionInput = (input: string) => {
+  return store.dispatch(_setSuggestionsInput(input));
+};
+
+export const sendToFriend = (e: any) => {
+  return store.dispatch(_sendToFriend(e));
 };

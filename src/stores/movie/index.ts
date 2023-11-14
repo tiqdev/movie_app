@@ -4,7 +4,13 @@ import { toast } from "sonner";
 import { Favorite, Movie } from "../../models/Movie";
 import { MovieDetail } from "../../models/MovieDetail";
 import { Review } from "../../models/Review";
-import { _token } from "../../utils/constants";
+import {
+  _token,
+  emailJsPublicKey,
+  emailJsServiceId,
+  emailJsTemplateId,
+} from "../../utils/constants";
+import emailjs from "@emailjs/browser";
 import {
   addFavorite,
   addReview,
@@ -42,6 +48,11 @@ type initialStateType = {
   reviewsError: string;
 
   reviewTextArea: string;
+
+  suggestionInput: string;
+
+  isEmailSending: boolean;
+  emailError: string;
 };
 
 const initialState: initialStateType = {
@@ -160,6 +171,11 @@ const initialState: initialStateType = {
   reviewsLoading: false,
   reviewsError: "",
   reviewTextArea: "",
+
+  suggestionInput: "",
+
+  isEmailSending: false,
+  emailError: "",
 };
 
 export const MovieSlice = createSlice({
@@ -214,6 +230,10 @@ export const MovieSlice = createSlice({
 
     _setReviewTextArea: (state, action: PayloadAction<string>) => {
       state.reviewTextArea = action.payload;
+    },
+
+    _setSuggestionsInput: (state, action: PayloadAction<string>) => {
+      state.suggestionInput = action.payload;
     },
   },
 
@@ -298,7 +318,6 @@ export const MovieSlice = createSlice({
     });
     builder.addCase(_removeFavoriteMovie.fulfilled, (state, action) => {
       state.favorites = action.payload;
-      console.log(action.payload, "payload favorites");
       state.favoritesLoading = false;
 
       state.favoritesError = "";
@@ -345,13 +364,31 @@ export const MovieSlice = createSlice({
     });
     builder.addCase(_removeMovieReview.fulfilled, (state, action) => {
       state.reviews = action.payload;
-      console.log(action.payload, "payload");
       state.reviewsLoading = false;
       state.reviewsError = "";
     });
     builder.addCase(_removeMovieReview.rejected, (state) => {
       state.reviewsLoading = false;
       toast.error("Error removing review");
+    });
+
+    //send to friend
+    builder.addCase(_sendToFriend.pending, (state) => {
+      state.isEmailSending = true;
+      state.emailError = "";
+    });
+    builder.addCase(_sendToFriend.fulfilled, (state, action) => {
+      state.isEmailSending = false;
+      state.emailError = "";
+      if (action.payload === "OK") {
+        toast.success("Email sent");
+        state.suggestionInput = "";
+      }
+    });
+    builder.addCase(_sendToFriend.rejected, (state) => {
+      state.isEmailSending = false;
+      state.emailError = "Error sending email";
+      toast.error("Error sending email");
     });
   },
 });
@@ -465,6 +502,24 @@ export const _removeMovieReview = createAsyncThunk(
   }
 );
 
+export const _sendToFriend = createAsyncThunk(
+  "movie/sendToFriend",
+  async (fc: any) => {
+    let result = await emailjs
+      .sendForm(emailJsServiceId, emailJsTemplateId, fc, emailJsPublicKey)
+      .then(
+        (result: any) => {
+          return result.text;
+        },
+        (error: any) => {
+          return error.text;
+        }
+      );
+
+    return result;
+  }
+);
+
 export const {
   _setIsLoading,
   _setMovie,
@@ -480,6 +535,7 @@ export const {
   _setTotalResults,
   _setDropDownIsActive,
   _setReviewTextArea,
+  _setSuggestionsInput,
 } = MovieSlice.actions;
 
 export default MovieSlice.reducer;

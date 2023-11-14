@@ -4,6 +4,7 @@ import { toHoursAndMinutes } from "../../../utils/functions";
 import Title from "../../common/title";
 import FavoriteStar from "../favoriteStar";
 import GenresList from "../genresList";
+import SuggestionsForm from "../suggestionContainer";
 
 interface MovieInfoProps {
   title: string;
@@ -36,6 +37,8 @@ const MovieInfo = ({
         <span>Runtime : {toHoursAndMinutes(runtime)}</span>
         <span>User Score : {vote_average} / 10</span>
       </div>
+
+      <SuggestionsForm title={title} />
 
       {overview !== "" && (
         <>

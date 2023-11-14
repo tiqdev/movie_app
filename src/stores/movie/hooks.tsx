@@ -72,3 +72,11 @@ export const useReviewTextArea = () => {
 export const useIsReviewLoading = () => {
   return useSelector((state: RootState) => state.movie.reviewsLoading);
 };
+
+export const useSuggestionInput = () => {
+  return useSelector((state: RootState) => state.movie.suggestionInput);
+};
+
+export const useIsEmailSending = () => {
+  return useSelector((state: RootState) => state.movie.isEmailSending);
+};
