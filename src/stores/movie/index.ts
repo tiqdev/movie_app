@@ -505,8 +505,11 @@ export const _removeMovieReview = createAsyncThunk(
 export const _sendToFriend = createAsyncThunk(
   "movie/sendToFriend",
   async (fc: any) => {
+    let service_id = emailJsServiceId!;
+    let template_id = emailJsTemplateId!;
+    let public_key = emailJsPublicKey!;
     let result = await emailjs
-      .sendForm(emailJsServiceId, emailJsTemplateId, fc, emailJsPublicKey)
+      .sendForm(service_id, template_id, fc, public_key)
       .then(
         (result: any) => {
           return result.text;

@@ -15,6 +15,6 @@ export const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-export const emailJsServiceId = "service_8l2tsxb";
-export const emailJsTemplateId = "template_x1nthv8";
-export const emailJsPublicKey = "UeV2cbZ2Qrg7OFFXZ";
+export const emailJsServiceId = process.env.EMAILJS_SERVICE_ID;
+export const emailJsTemplateId = process.env.EMAILJS_TEMPLATE_ID;
+export const emailJsPublicKey = process.env.EMAILJS_PUBLIC_KEY;
