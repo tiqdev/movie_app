@@ -18,12 +18,7 @@ const WebLayout = () => {
   return (
     <Div100vh className="w-full mx-auto flex flex-col p-5 relative">
       {(isFavoriteLoading || isLoading || isReviewLoading) && (
-        <div
-          className="flex justify-center items-center h-full w-full fixed top-0 left-0 overflow-hidden z-50 bg-m_black bg-opacity-30"
-          style={{
-            backdropFilter: "blur(10px)",
-          }}
-        >
+        <div className="flex justify-center items-center h-full w-full fixed top-0 left-0 overflow-hidden z-50 bg-m_black bg-opacity-30 filter backdrop-blur-md">
           <Loading />
         </div>
       )}
