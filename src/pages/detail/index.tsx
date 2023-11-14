@@ -56,12 +56,6 @@ const DetailPage = () => {
   return (
     <AnimatePage>
       <div className="mt-[80px] w-full pb-[40px]">
-        {(isFavoriteLoading || isLoading || isReviewLoading) && (
-          <div className="flex justify-center items-center h-screen w-full bg-transparent">
-            <Loading />
-          </div>
-        )}
-
         {!isLoading && movieDetail?.id === 0 && (
           <div className="w-full h-[calc(100vh-80px)] flex flex-col items-center justify-center gap-4">
             <h1 className="text-2xl font-bold text-m_yellow">

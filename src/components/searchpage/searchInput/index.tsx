@@ -16,7 +16,6 @@ const SearchInput = () => {
   //Debounce the search query for performance optimization
   const request = debounce((query: string) => {
     if (query !== "" && query.length > 2) {
-      console.log("searching for ", query);
       setPage(1);
       searchMovie({ query, page: 1 });
     }

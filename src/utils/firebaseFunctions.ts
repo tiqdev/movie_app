@@ -102,3 +102,20 @@ export const addReview = async (review: Review) => {
     return "";
   }
 };
+
+export const removeReview = async (reviewId: string) => {
+  try {
+    let delete_query = query(
+      reviewMovieCollection,
+      where("reviewId", "==", reviewId)
+    );
+    const snapshot = await getDocs(delete_query);
+    snapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+    });
+    return "success";
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+    return "error";
+  }
+};

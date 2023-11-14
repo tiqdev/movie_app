@@ -1,6 +1,7 @@
-import { Movie } from "../../../models/Movie";
+import { Favorite, Movie } from "../../../models/Movie";
 
 import {
+  useFavoriteMovies,
   useSearchActive,
   useSearchIsLoading,
   useSearchQuery,
@@ -11,12 +12,44 @@ import { Link } from "react-router-dom";
 import SearchListItem from "../searchListItem";
 import ErrorText from "../../common/errorText";
 import Loading from "../../common/loading";
+import { motion } from "framer-motion";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useUser } from "../../../stores/user/hooks";
+import { MovieDetail } from "../../../models/MovieDetail";
+import {
+  addFavoriteMovie,
+  removeFavoriteMovie,
+} from "../../../stores/movie/actions";
 
 const SearchBox = () => {
   const searchedMovies = useSearchedMovies();
   const searchActive = useSearchActive();
   const searchQuery = useSearchQuery();
   const searchIsLoading = useSearchIsLoading();
+  const favoriteMovies = useFavoriteMovies();
+  const user = useUser();
+
+  const handleFavorite = async (movie: Movie) => {
+    let favoriteMovie = {
+      userId: user.uid,
+      movieId: movie.id,
+      title: movie.title,
+      poster: movie.poster_path,
+      backdrop: movie.backdrop_path,
+      overview: movie.overview,
+      favoriteId: user.uid + movie.id,
+    };
+
+    const isFavorite = favoriteMovies.find(
+      (favoriteMovie: Favorite) => favoriteMovie.movieId === movie.id
+    );
+
+    if (isFavorite) {
+      await removeFavoriteMovie(favoriteMovie);
+    } else {
+      await addFavoriteMovie(favoriteMovie);
+    }
+  };
 
   return (
     <>
@@ -31,9 +64,38 @@ const SearchBox = () => {
       <>
         {searchedMovies.length > 0 && (
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
-            {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => (
-              <SearchListItem movie={movie} key={index} />
-            ))}
+            {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => {
+              let isFavorite = favoriteMovies.find(
+                (favoriteMovie: Favorite) => favoriteMovie.movieId === movie.id
+              );
+
+              return (
+                <div className="relative" key={index}>
+                  <SearchListItem movie={movie} />
+
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
+                    onClick={() => {
+                      //
+                    }}
+                  >
+                    {user.email !== "" &&
+                      (isFavorite ? (
+                        <AiFillStar
+                          className="text-m_yellow z-20"
+                          onClick={() => handleFavorite(movie)}
+                        />
+                      ) : (
+                        <AiOutlineStar
+                          className="text-m_yellow z-20"
+                          onClick={() => handleFavorite(movie)}
+                        />
+                      ))}
+                  </motion.div>
+                </div>
+              );
+            })}
           </div>
         )}
 

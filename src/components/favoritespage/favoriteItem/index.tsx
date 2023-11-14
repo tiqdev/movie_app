@@ -14,6 +14,7 @@ const FavoriteItem = ({ favorite }: { favorite: Favorite }) => {
         <h1 className="font-bold md:text-2xl text-[16px] text-m_yellow">
           {truncateAndAddEllipsis(favorite.title, 27)}
         </h1>
+
         <span className="font-light text-sm md:block hidden">
           {truncateAndAddEllipsis(favorite.overview, 200)}
         </span>

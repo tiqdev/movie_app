@@ -71,12 +71,12 @@ const Header = () => {
           >
             <Link
               to="/favorites"
-              className="m_black w-full flex justify-center hover:bg-m_black hover:text-m_yellow text-m_black font-medium rounded-t-lg py-2"
+              className="m_black w-full flex justify-center hover:bg-m_brown hover:text-m_yellow text-m_black font-medium rounded-t-lg py-2"
             >
               <span className="text-[14px]">Favorites</span>
             </Link>
             <button
-              className="m_black w-full flex justify-center hover:bg-m_black hover:text-m_yellow text-m_black font-medium rounded-b-lg py-2"
+              className="m_black w-full flex justify-center hover:bg-m_brown hover:text-m_yellow text-m_black font-medium rounded-b-lg py-2"
               onClick={logout}
             >
               <span className="text-[14px]">Log out</span>

@@ -10,6 +10,7 @@ import {
   getFavorites,
   getReviews,
   removeFavorite,
+  removeReview,
 } from "../../utils/firebaseFunctions";
 import { DocumentData, QuerySnapshot, onSnapshot } from "firebase/firestore";
 import { toast } from "sonner";
@@ -338,6 +339,21 @@ export const MovieSlice = createSlice({
       state.reviewsLoading = false;
       toast.error("Error adding review");
     });
+
+    //remove movie review
+    builder.addCase(_removeMovieReview.pending, (state) => {
+      state.reviewsLoading = true;
+      state.reviewsError = "";
+    });
+    builder.addCase(_removeMovieReview.fulfilled, (state, action) => {
+      state.reviewsLoading = false;
+      state.reviewsError = "";
+      state.reviews = action.payload;
+    });
+    builder.addCase(_removeMovieReview.rejected, (state) => {
+      state.reviewsLoading = false;
+      toast.error("Error removing review");
+    });
   },
 });
 
@@ -418,7 +434,6 @@ export const _getMovieReviews = createAsyncThunk(
   "movie/getMovieReviews",
   async (movieId: number) => {
     const fetchedReviews = await getReviews(movieId);
-    console.log(fetchedReviews, "fetchedReviews");
     return fetchedReviews;
   }
 );
@@ -431,6 +446,20 @@ export const _addMovieReview = createAsyncThunk(
 
     if (result !== "") {
       toast.success("Review added");
+      fetchedReviews = await getReviews(review.movieId);
+    }
+    return fetchedReviews;
+  }
+);
+
+export const _removeMovieReview = createAsyncThunk(
+  "movie/removeMovieReview",
+  async (review: Review) => {
+    const result = await removeReview(review.reviewId);
+    let fetchedReviews: Review[] = [];
+
+    if (result !== "error") {
+      toast.success("Review removed");
       fetchedReviews = await getReviews(review.movieId);
     }
     return fetchedReviews;

@@ -2,46 +2,29 @@ import SearchListItem from "../../components/searchpage/searchListItem";
 import { Favorite, Movie } from "../../models/Movie";
 import {
   useFavoriteMovies,
-  useIsLoading,
-  usePage,
-  useSearchQuery,
-  useSearchedMovies,
-  useTotalPages,
-  useTotalResults,
+  useIsFavoriteLoading,
 } from "../../stores/movie/hooks";
 import { useEffect } from "react";
-import { searchMovie, setSearchQuery } from "../../stores/movie/actions";
-import SearchInput from "../../components/searchpage/searchInput";
+import { removeFavoriteMovie } from "../../stores/movie/actions";
 import AnimatePage from "../../components/common/animatePage";
 import Loading from "../../components/common/loading";
-import useInfiniteScroll from "react-infinite-scroll-hook";
 import ScrollToTop from "../../components/common/scrollToTop";
 import Title from "../../components/common/title";
 import FavoriteItem from "../../components/favoritespage/favoriteItem";
+import { FaMinusCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const FavoritesPage = () => {
-  const searchedMovies = useSearchedMovies();
-
   const favorites = useFavoriteMovies();
-  const isLoading = useIsLoading();
-  const searchQuery = useSearchQuery();
-  const page = usePage();
-  const totalResults = useTotalResults();
-  const totalPages = useTotalPages();
+  const favoritesIsLoading = useIsFavoriteLoading();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [sentryRef] = useInfiniteScroll({
-    loading: isLoading,
-    hasNextPage: page <= totalPages,
-    onLoadMore: () => {
-      searchMovie({ query: searchQuery, page: page });
-    },
-    disabled: false,
-    rootMargin: "0px 0px 400px 0px",
-  });
+  const handleRemoveFavorite = (favoriteMovie: Favorite) => {
+    removeFavoriteMovie(favoriteMovie);
+  };
 
   return (
     <AnimatePage>
@@ -51,19 +34,32 @@ const FavoritesPage = () => {
           <Title title="My Favorite Movies" />
         </div>
 
-        <div className="flex flex-col gap-4 my-5 mb-[100px] mt-[20px] w-full">
-          {favorites?.map((favorite: Favorite, index: number) => (
-            <FavoriteItem favorite={favorite} key={index} />
-          ))}
+        {!favoritesIsLoading && favorites?.length === 0 && (
+          <div className="flex flex-col items-center justify-center gap-4 w-full">
+            <h1 className="text-[20px] text-white font-medium">
+              You don't have any favorite movies.
+            </h1>
+          </div>
+        )}
 
-          {favorites?.length === 0 && (
-            <div className="flex flex-col items-center justify-center gap-4 w-full">
-              <h1 className="text-[20px] text-white font-medium">
-                You don't have any favorite movies.
-              </h1>
-            </div>
-          )}
-        </div>
+        {favorites?.length > 0 && (
+          <div className="flex flex-col gap-4 my-5 mb-[100px] mt-[20px] w-full">
+            {favorites?.map((favorite: Favorite, index: number) => (
+              <div className="relative" key={index}>
+                <FavoriteItem favorite={favorite} />
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  className="p-2 bg-m_red absolute top-2 right-2 rounded-full cursor-pointer"
+                  onClick={() => {
+                    handleRemoveFavorite(favorite);
+                  }}
+                >
+                  <FaMinusCircle className="text-m_black z-20" />
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </AnimatePage>
   );

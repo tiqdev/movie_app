@@ -6,6 +6,7 @@ import {
   _getMovieDetail,
   _getMovieReviews,
   _removeFavoriteMovie,
+  _removeMovieReview,
   _resetSearch,
   _searchMovie,
   _setDiscoveredMovie,
@@ -24,6 +25,7 @@ import {
 } from ".";
 import { Favorite, Movie } from "../../models/Movie";
 import { MovieDetail } from "../../models/MovieDetail";
+import { Review } from "../../models/Review";
 
 export const setIsLoading = (isLoading: boolean) => {
   store.dispatch(_setIsLoading(isLoading));
@@ -107,8 +109,12 @@ export const getMovieReview = (movieId: number) => {
   return store.dispatch(_getMovieReviews(movieId));
 };
 
-export const addMovieReview = (review: any) => {
+export const addMovieReview = (review: Review) => {
   return store.dispatch(_addMovieReview(review));
+};
+
+export const removeMovieReview = (review: Review) => {
+  return store.dispatch(_removeMovieReview(review));
 };
 
 export const setReviewTextArea = (review: string) => {
