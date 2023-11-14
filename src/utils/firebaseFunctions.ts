@@ -110,17 +110,10 @@ export const removeReview = async (reviewId: string) => {
       where("reviewId", "==", reviewId)
     );
     const snapshot = await getDocs(delete_query);
-    snapshot.forEach(async (doc) => {
-      await deleteDoc(doc.ref)
-        .then((result) => {
-          console.log(result);
-          return "success";
-        })
-        .catch((error) => {
-          console.log(error);
-          return "error";
-        });
-    });
+    const item = snapshot.docs[0];
+    await deleteDoc(item.ref);
+    console.log("Document successfully deleted!");
+    return "success";
   } catch (e) {
     console.error("Error deleting document: ", e);
     return "error";
