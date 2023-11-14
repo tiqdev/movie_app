@@ -15,7 +15,7 @@ const ReviewItem = ({ review }: Props) => {
   };
 
   return (
-    <div className="flex flex-col max-w-[600px] w-full md:min-w-[600px]  z-10 gap-4 bg-black p-4 rounded-[22px] relative">
+    <div className="flex flex-col  w-full z-10 gap-4 bg-black p-4 rounded-[22px] relative">
       {user.uid === review.userId && (
         <button
           className="absolute top-3 right-3"
