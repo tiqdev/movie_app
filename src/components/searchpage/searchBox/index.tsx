@@ -66,33 +66,31 @@ const SearchBox = () => {
       <>
         {searchedMovies.length > 0 && (
           <div className="flex flex-col max-w-[560px] w-[90%] gap-2">
-            {!isFavoriteLoading &&
-              searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => {
-                let isFavorite = favoriteMovies.find(
-                  (favoriteMovie: Favorite) =>
-                    favoriteMovie.movieId === movie.id
-                );
+            {searchedMovies?.slice(0, 2).map((movie: Movie, index: number) => {
+              let isFavorite = favoriteMovies.find(
+                (favoriteMovie: Favorite) => favoriteMovie.movieId === movie.id
+              );
 
-                return (
-                  <div className="relative" key={index}>
-                    <SearchListItem movie={movie} />
-                    {user.email !== "" && (
-                      <motion.div
-                        whileHover={{ scale: 1.2 }}
-                        className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
-                        onClick={() => handleFavorite(movie)}
-                        data-testid={isFavorite ? "favorite" : "not-favorite"}
-                      >
-                        {isFavorite ? (
-                          <AiFillStar className="text-m_yellow z-20" />
-                        ) : (
-                          <AiOutlineStar className="text-m_yellow z-20" />
-                        )}
-                      </motion.div>
-                    )}
-                  </div>
-                );
-              })}
+              return (
+                <div className="relative" key={index}>
+                  <SearchListItem movie={movie} />
+                  {user.email !== "" && (
+                    <motion.div
+                      whileHover={{ scale: 1.2 }}
+                      className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer"
+                      onClick={() => handleFavorite(movie)}
+                      data-testid={isFavorite ? "favorite" : "not-favorite"}
+                    >
+                      {isFavorite ? (
+                        <AiFillStar className="text-m_yellow z-20" />
+                      ) : (
+                        <AiOutlineStar className="text-m_yellow z-20" />
+                      )}
+                    </motion.div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 

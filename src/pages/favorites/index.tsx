@@ -52,7 +52,7 @@ const FavoritesPage = () => {
           </div>
         )}
 
-        {!favoritesIsLoading && favorites?.length > 0 && (
+        {favorites?.length > 0 && (
           <div className="flex flex-col gap-4 my-5 mb-[100px] mt-[20px] w-full">
             {favorites?.map((favorite: Favorite, index: number) => (
               <div className="relative" key={index}>
