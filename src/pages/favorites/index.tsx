@@ -14,10 +14,12 @@ import {
   useFavoriteMovies,
   useIsFavoriteLoading,
 } from "../../stores/movie/hooks";
+import { useUser } from "../../stores/user/hooks";
 
 const FavoritesPage = () => {
   const favorites = useFavoriteMovies();
   const favoritesIsLoading = useIsFavoriteLoading();
+  const user = useUser();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user")!);
@@ -42,15 +44,25 @@ const FavoritesPage = () => {
           <Title title="My Favorite Movies" />
         </div>
 
-        {!favoritesIsLoading && favorites?.length === 0 && (
+        {user.email === "" && (
           <div className="flex flex-col items-center justify-center gap-4 w-full">
             <h1 className="text-[20px] text-white font-medium">
-              You don't have any favorite movies.
+              You need to login to see your favorite movies.
             </h1>
           </div>
         )}
 
-        {favorites?.length > 0 && (
+        {!favoritesIsLoading &&
+          favorites?.length === 0 &&
+          user.email !== "" && (
+            <div className="flex flex-col items-center justify-center gap-4 w-full">
+              <h1 className="text-[20px] text-white font-medium">
+                You don't have any favorite movies.
+              </h1>
+            </div>
+          )}
+
+        {user.email !== "" && favorites?.length > 0 && (
           <div className="flex flex-col gap-4 my-5 mb-[100px] mt-[20px] w-full">
             {favorites?.map((favorite: Favorite, index: number) => (
               <div className="relative" key={index}>

@@ -5,6 +5,7 @@ import {
   removeFavoriteMovie,
 } from "../../../stores/movie/actions";
 import { useFavoriteMovies } from "../../../stores/movie/hooks";
+import { motion } from "framer-motion";
 
 interface FavoriteStarProps {
   userId: string;
@@ -36,12 +37,20 @@ const FavoriteStar = ({ userId, movie }: FavoriteStarProps) => {
     }
   };
 
-  const _class = "w-6 h-6 text-m_yellow cursor-pointer";
+  const _class = "text-m_yellow cursor-pointer";
 
-  return isFavorite ? (
-    <AiFillStar className={_class} onClick={handleFavorite} />
-  ) : (
-    <AiOutlineStar className={_class} onClick={handleFavorite} />
+  return (
+    <motion.div
+      whileHover={{ scale: 1.2 }}
+      className="p-2 bg-m_brown absolute top-2 right-2 rounded-full cursor-pointer flex items-center justify-center"
+      onClick={handleFavorite}
+    >
+      {isFavorite ? (
+        <AiFillStar className={_class} />
+      ) : (
+        <AiOutlineStar className={_class} />
+      )}
+    </motion.div>
   );
 };
 

@@ -66,7 +66,7 @@ const DetailPage = () => {
 
               <div className="px-4 w-full max-w-[1280px] mx-auto flex md:flex-row flex-col items-center justify-between relative z-20">
                 {user.email !== "" && (
-                  <div className="absolute top-3 left-6">
+                  <div className="absolute top-0 left-[64px]">
                     <FavoriteStar userId={user.uid} movie={movieDetail} />
                   </div>
                 )}

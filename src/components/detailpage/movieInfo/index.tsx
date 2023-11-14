@@ -1,8 +1,7 @@
 import { Genre } from "../../../models/MovieDetail";
-import { useMovieDetail } from "../../../stores/movie/hooks";
+import { useUser } from "../../../stores/user/hooks";
 import { toHoursAndMinutes } from "../../../utils/functions";
 import Title from "../../common/title";
-import FavoriteStar from "../favoriteStar";
 import GenresList from "../genresList";
 import SuggestionsForm from "../suggestionContainer";
 
@@ -23,6 +22,8 @@ const MovieInfo = ({
   vote_average,
   overview,
 }: MovieInfoProps) => {
+  const user = useUser();
+
   return (
     <div className="flex flex-col md:gap-6 gap-4 flex-1 md:items-start items-center justify-center">
       <Title
@@ -38,7 +39,7 @@ const MovieInfo = ({
         <span>User Score : {vote_average} / 10</span>
       </div>
 
-      <SuggestionsForm title={title} />
+      {user.email !== "" && <SuggestionsForm title={title} />}
 
       {overview !== "" && (
         <>
