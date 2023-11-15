@@ -4,7 +4,7 @@
 
 ### Explanation
 
-This project utilizes the TMDB API to provide information about almost all movies from the past to the present. It offers users a pleasant experience by allowing them to create their own favorite lists and recommend movies to their friends via email. Through Firebase integration, you can connect with your Google mail address, create personal favorite lists, make comments on movies, and view the comments of others. Additionally, suggesting a movie to a friend is as simple as entering their email address and sending the recommendation. Thanks to the project's mobile compatibility feature, you can use it on any device without experiencing performance issues.
+This project utilizes the TMDB API to provide information about almost all movies from the past to the present. It offers users a pleasant experience by allowing them to create their own favorite lists and recommend movies to their friends via email. Through Firebase integration, you can connect with your Google mail address, create personal favorite lists, make comments on movies, and view the comments of others. Additionally, suggesting a movie to a friend is as simple as entering their email address and sending the recommendation. Thanks to the project's mobile compatibility feature, you can use it on any device without experiencing performance issues or any visual bugs.
 To visit the project's main page and use it, follow the link: https://tiqdevmovie.vercel.app
 
 ### Installation
@@ -31,6 +31,22 @@ EMAILJS_PUBLIC_KEY=apikey
 
 NODE_ENV=production
 
+```
+
+### utils/constants.ts
+
+You have to change firebase configs in constants.ts to use firebase google login and firestore
+
+```
+export const firebaseConfig = {
+  apiKey: process.env.FIREBASE_APIKEY,
+  authDomain: your_auth_domain,
+  projectId: your_project_id,
+  storageBucket: your_storage_bucket,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+};
 ```
 
 ### Run app
