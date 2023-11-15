@@ -13,8 +13,8 @@ export const useMovie = () => {
   return useSelector((state: RootState) => state.movie.movie);
 };
 
-export const useDiscoveredMovie = () => {
-  return useSelector((state: RootState) => state.movie.discoveredMovie);
+export const useBackdropImage = () => {
+  return useSelector((state: RootState) => state.movie.backdropImage);
 };
 
 export const useSearchedMovies = () => {

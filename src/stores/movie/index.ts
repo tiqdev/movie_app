@@ -21,7 +21,8 @@ import {
 } from "../../utils/firebaseFunctions";
 
 type initialStateType = {
-  discoveredMovie: Movie | null;
+  backdropImage: string;
+
   movie: Movie | null;
   movies: Movie[] | null;
   searchedMovies: Movie[];
@@ -56,25 +57,8 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
-  discoveredMovie: {
-    adult: false,
-    backdrop_path:
-      "https://image.tmdb.org/t/p/original/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
-    genre_ids: [28, 53],
-    id: 575264,
-    original_language: "en",
-    original_title: "Mission: Impossible - Dead Reckoning Part One",
-    overview:
-      "Ethan Hunt and his IMF team embark on their most dangerous mission yet: To track down a terrifying new weapon that threatens all of humanity before it falls into the wrong hands. With control of the future and the world's fate at stake and dark forces from Ethan's past closing in, a deadly race around the globe begins. Confronted by a mysterious, all-powerful enemy, Ethan must consider that nothing can matter more than his mission—not even the lives of those he cares about most.",
-    popularity: 3264.457,
-    poster_path:
-      "https://image.tmdb.org/t/p/w500/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
-    release_date: "2023-07-08",
-    title: "Mission: Impossible - Dead Reckoning Part One",
-    video: false,
-    vote_average: 7.7,
-    vote_count: 2131,
-  },
+  backdropImage:
+    "https://image.tmdb.org/t/p/original/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
   movie: {
     adult: false,
     backdrop_path: "",
@@ -191,8 +175,8 @@ export const MovieSlice = createSlice({
     _setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
-    _setDiscoveredMovie: (state, action: PayloadAction<Movie>) => {
-      state.discoveredMovie = action.payload;
+    _setBackdropImage: (state, action: PayloadAction<string>) => {
+      state.backdropImage = action.payload;
     },
     _setSearchedMovies: (state, action: PayloadAction<Movie[]>) => {
       state.searchedMovies = action.payload;
@@ -525,9 +509,9 @@ export const _sendToFriend = createAsyncThunk(
 
 export const {
   _setIsLoading,
+  _setBackdropImage,
   _setMovie,
   _setError,
-  _setDiscoveredMovie,
   _setSearchedMovies,
   _setSearchActive,
   _setMovieDetail,

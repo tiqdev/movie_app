@@ -10,7 +10,7 @@ import {
   _resetSearch,
   _searchMovie,
   _sendToFriend,
-  _setDiscoveredMovie,
+  _setBackdropImage,
   _setDropDownIsActive,
   _setError,
   _setIsLoading,
@@ -41,8 +41,8 @@ export const setMovie = (movie: Movie) => {
   store.dispatch(_setMovie(movie));
 };
 
-export const setDiscoveredMovie = (movies: Movie) => {
-  store.dispatch(_setDiscoveredMovie(movies));
+export const setBackdropImage = (image: string) => {
+  store.dispatch(_setBackdropImage(image));
 };
 
 export const setSearchedMovies = (movies: Movie[]) => {
