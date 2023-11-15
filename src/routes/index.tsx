@@ -4,6 +4,7 @@ import SearchPage from "../pages/search";
 import ListPage from "../pages/list";
 import DetailPage from "../pages/detail";
 import FavoritesPage from "../pages/favorites";
+import NotFoundPage from "../pages/404";
 
 const routes = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const routes = createBrowserRouter([
       {
         path: "/favorites/",
         element: <FavoritesPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
